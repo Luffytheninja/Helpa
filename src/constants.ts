@@ -86,4 +86,7 @@ export const ICONS = {
   analytics:    I('Graph-Bar--Streamline-Stickies-1.svg'),
   safety:       I('Safety--Streamline-Stickies-1.svg'),
   library:      I('Book-Library--Streamline-Stickies-1.svg'),
+  location:     I('Compass-1--Streamline-Stickies-1.svg'),
+  verification: I('Validation-1--Streamline-Stickies-1.svg'),
+  lock:         I('Key--Streamline-Stickies-1.svg'),
 } as const;

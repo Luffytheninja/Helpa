@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TopBar, Avatar, MapPlaceholder } from '../../components/ui';
-import { AVATARS } from '../../constants';
+import { TopBar, Avatar, MapPlaceholder, StickyIcon } from '../../components/ui';
+import { AVATARS, ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
 
 export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; onComplete: () => void }) {
@@ -38,8 +38,8 @@ export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; on
             }} />
             <span style={{ fontWeight: 700, color: 'var(--brand-green)' }}>In Progress</span>
           </div>
-          <span style={{ fontWeight: 700, fontSize: '1.125rem', fontFeatureSettings: '"tnum"', color: 'var(--text-primary)' }}>
-            ⏱ {timer}
+          <span style={{ fontWeight: 700, fontSize: '1.25rem', fontFeatureSettings: '"tnum"', color: 'var(--text-primary)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <StickyIcon src={ICONS.time} size={20} /> {timer}
           </span>
         </div>
 
@@ -49,20 +49,27 @@ export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; on
             <Avatar name="Emeka Obi" size={52} ring="active" src={AVATARS.emeka} />
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700, fontSize: '1.0625rem' }}>Emeka Obi</div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>⭐ 4.9 · Plumber</div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                <StickyIcon src={ICONS.star} size={14} /> 4.9 · Plumber
+              </div>
             </div>
-            <button style={{ background: 'none', fontSize: '1.5rem' }} onClick={() => haptic('light')}>📞</button>
+            <button style={{ background: 'var(--brand-green-light)', padding: 10, borderRadius: 'var(--radius-full)' }} onClick={() => haptic('light')}>
+              <StickyIcon src={ICONS.phone} size={24} />
+            </button>
           </div>
           <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: 4 }}>Kitchen Sink Repair</div>
-          <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: 12 }}>
-            📍 14 Adeyemi St, Ikeja GRA
+          <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: 16, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <StickyIcon src={ICONS.location} size={16} /> 14 Adeyemi St, Ikeja GRA
           </div>
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             background: 'var(--bg-elevated)', borderRadius: 'var(--radius-sm)', padding: '12px 14px',
           }}>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>Escrow</span>
-            <span className="escrow-badge">🔒 ₦15,000 secured</span>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: 500 }}>Escrow</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <StickyIcon src={ICONS.lock} size={14} />
+              <span style={{ fontWeight: 600, fontSize: '0.9375rem' }}>₦15,000 secured</span>
+            </div>
           </div>
         </div>
 
@@ -74,14 +81,14 @@ export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; on
               style={{ borderRadius: 'var(--radius-md)' }}
               onClick={() => { haptic('medium'); setShowConfirm(true); }}
             >
-              ✅ Mark Complete
+              <StickyIcon src={ICONS.verification} size={18} style={{ filter: 'brightness(0) invert(1)' }} /> Mark Complete
             </button>
             <button
               className="btn btn-secondary"
-              style={{ flex: '0 0 auto', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}
+              style={{ flex: '0 0 auto', borderRadius: 'var(--radius-md)', padding: '14px 16px', display: 'inline-flex', alignItems: 'center', gap: 6 }}
               onClick={() => { haptic('warning'); setShowDispute(true); }}
             >
-              ⚠️ Dispute
+              <StickyIcon src={ICONS.notification} size={18} /> Dispute
             </button>
           </div>
         ) : (
@@ -93,11 +100,11 @@ export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; on
               Payment will be released on confirmation.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <button className="btn btn-primary btn-full btn-bounce" onClick={() => { haptic('success'); onComplete(); }} style={{ borderRadius: 'var(--radius-md)' }}>
-                🟢 Yes, release payment
+              <button className="btn btn-primary btn-full btn-bounce" onClick={() => { haptic('success'); onComplete(); }} style={{ borderRadius: 'var(--radius-md)', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <StickyIcon src={ICONS.verification} size={18} style={{ filter: 'brightness(0) invert(1)' }} /> Yes, release payment
               </button>
-              <button className="btn btn-secondary btn-full" onClick={() => { haptic('warning'); setShowDispute(true); }} style={{ borderRadius: 'var(--radius-md)' }}>
-                🔴 No, open dispute
+              <button className="btn btn-secondary btn-full" onClick={() => { haptic('warning'); setShowDispute(true); }} style={{ borderRadius: 'var(--radius-md)', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <StickyIcon src={ICONS.notification} size={18} /> No, open dispute
               </button>
             </div>
           </div>
@@ -167,7 +174,9 @@ export function RatingFlow({ onBack, onDone }: { onBack: () => void; onDone: () 
   if (submitted) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh', alignItems: 'center', justifyContent: 'center', padding: 32 }}>
-        <div className="animate-coin-drop" style={{ fontSize: '5rem', marginBottom: 16 }}>💸</div>
+        <div className="animate-coin-drop" style={{ marginBottom: 24 }}>
+          <StickyIcon src={ICONS.money} size={80} />
+        </div>
         <h1 style={{ fontSize: '1.5rem', fontWeight: 700, textAlign: 'center', marginBottom: 8 }}>
           ₦15,000 released to Emeka!
         </h1>
@@ -241,9 +250,9 @@ export function RatingFlow({ onBack, onDone }: { onBack: () => void; onDone: () 
           className="btn btn-primary btn-full btn-lg btn-bounce"
           onClick={() => { if (stars > 0) { haptic('success'); setSubmitted(true); } }}
           disabled={stars === 0}
-          style={{ borderRadius: 'var(--radius-md)', opacity: stars > 0 ? 1 : 0.5 }}
+          style={{ borderRadius: 'var(--radius-md)', opacity: stars > 0 ? 1 : 0.5, gap: 10 }}
         >
-          Submit Rating ⭐
+          Submit Rating <StickyIcon src={ICONS.star} size={20} style={{ filter: 'brightness(0) invert(1)' }} />
         </button>
       </div>
     </div>

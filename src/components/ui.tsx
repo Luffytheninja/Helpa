@@ -85,7 +85,7 @@ export function BottomNav({ active, onChange, notifCount = 0 }: BottomNavProps) 
               transform: 'translateX(-50%)',
               width: 20, height: 3,
               borderRadius: 2,
-              background: 'var(--action-orange)',
+              background: 'var(--brand-green)',
             }} />
           )}
         </button>
@@ -156,7 +156,10 @@ export function Avatar({ name, size = 44, ring, src }: AvatarProps) {
 interface EscrowBadgeProps { amount: string; }
 export function EscrowBadge({ amount }: EscrowBadgeProps) {
   return (
-    <span className="escrow-badge">🔒 {amount} secured</span>
+    <span className="escrow-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+      <StickyIcon src={ICONS.lock} size={14} alt="Secured" />
+      <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{amount} secured</span>
+    </span>
   );
 }
 
@@ -166,8 +169,13 @@ export function TrustBadge({ level }: TrustBadgeProps) {
   const label = level.charAt(0).toUpperCase() + level.slice(1);
   const dots = level === 'verified' ? 1 : level === 'trusted' ? 2 : level === 'elite' ? 3 : 4;
   return (
-    <span className={`trust-badge trust-badge-${level}`}>
-      {'🟢'.repeat(dots)} {label}
+    <span className={`trust-badge trust-badge-${level}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+      <div style={{ display: 'flex', gap: 1 }}>
+        {[...Array(dots)].map((_, i) => (
+          <StickyIcon key={i} src={ICONS.verification} size={12} alt="Verified" />
+        ))}
+      </div>
+      {label}
     </span>
   );
 }
@@ -175,10 +183,11 @@ export function TrustBadge({ level }: TrustBadgeProps) {
 // ─── Chip ─────────────────────────────────────────────────────────────────────
 interface ChipProps { type: 'urgent' | 'scheduled' | 'contract' | 'success' | 'pending' | 'inactive'; label: string; }
 export function Chip({ type, label }: ChipProps) {
-  const dot = type === 'urgent' ? '🔴' : type === 'scheduled' ? '🟢' : type === 'contract' ? '🔵' : '';
+  const icon = type === 'urgent' ? ICONS.notification : type === 'scheduled' ? ICONS.time : type === 'contract' ? ICONS.receipt : null;
   return (
-    <span className={`chip chip-${type}`}>
-      {dot && <span>{dot}</span>}{label}
+    <span className={`chip chip-${type}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+      {icon && <StickyIcon src={icon} size={14} alt={type} />}
+      {label}
     </span>
   );
 }
@@ -260,8 +269,8 @@ export function JobCard({
           </div>
           <div>
             <div style={{ fontWeight: 700, fontSize: '0.9375rem', lineHeight: 1.3, marginBottom: 2 }}>{title}</div>
-            <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>
-              {customerName} · ⭐ {customerRating}
+            <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              {customerName} · <StickyIcon src={ICONS.star} size={12} /> {customerRating}
             </div>
           </div>
         </div>
@@ -269,17 +278,17 @@ export function JobCard({
       </div>
 
       {/* Middle */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 3 }}>
-          📍 {location}
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          <StickyIcon src={ICONS.location} size={14} alt="Location" /> {location}
         </span>
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>•</span>
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>🗺️ {distance}</span>
+        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          <StickyIcon src={ICONS.globe} size={14} alt="Distance" /> {distance}
+        </span>
         {applicants !== undefined && (
-          <>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>•</span>
-            <span style={{ fontSize: '0.75rem', color: 'var(--action-orange)', fontWeight: 600 }}>{applicants} applied</span>
-          </>
+          <span style={{ fontSize: '0.75rem', color: 'var(--action-orange)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+            <StickyIcon src={ICONS.profile} size={14} alt="Applicants" /> {applicants} applied
+          </span>
         )}
       </div>
 
@@ -325,18 +334,18 @@ export function MapPlaceholder({ height = 180, showRadius = false }: { height?: 
         <div style={{
           position: 'absolute',
           width: 120, height: 120, borderRadius: '50%',
-          background: 'rgba(249,115,22,0.1)',
-          border: '2px solid rgba(249,115,22,0.3)',
+          background: 'rgba(26,107,84,0.1)',
+          border: '2px solid rgba(26,107,84,0.3)',
         }} />
       )}
       <div className="map-pulse">
-        <span style={{ fontSize: '1.5rem' }}>📍</span>
+        <StickyIcon src={ICONS.location} size={32} />
       </div>
       {/* Helper pins */}
       {[
-        { top: '20%', left: '20%', color: '#22C55E' },
-        { top: '35%', right: '25%', color: '#22C55E' },
-        { bottom: '30%', left: '30%', color: '#EAB308' },
+        { top: '20%', left: '20%', color: 'var(--brand-green)' },
+        { top: '35%', right: '25%', color: 'var(--brand-green)' },
+        { bottom: '30%', left: '30%', color: 'var(--action-orange)' },
       ].map((pin, i) => (
         <div key={i} style={{
           position: 'absolute', ...pin,
@@ -376,7 +385,9 @@ export function HelperCard({ name, rating, distance, trust, ring, jobs }: {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
         <Avatar name={name} size={56} ring={ring} />
         <div style={{ fontWeight: 700, fontSize: '0.9375rem', textAlign: 'center' }}>{name.split(' ')[0]}</div>
-        <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>⭐ {rating} · {distance}</div>
+        <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          <StickyIcon src={ICONS.star} size={12} /> {rating} · {distance}
+        </div>
         <TrustBadge level={trust} />
         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{jobs} jobs</div>
         <button

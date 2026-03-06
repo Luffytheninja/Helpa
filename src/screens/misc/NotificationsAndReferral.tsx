@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { TopBar } from '../../components/ui';
+import { TopBar, StickyIcon } from '../../components/ui';
+import { ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
 
 const NOTIFS = [
-  { id: 'n1', icon: '🟢', bg: '#D1FAE5', title: 'Helper accepted your job', sub: 'Emeka Obi accepted Kitchen Sink Repair', time: '2 min ago', unread: true },
-  { id: 'n2', icon: '🔒', bg: '#FEF9C3', title: 'Escrow funded', sub: '₦15,000 secured for Kitchen Sink Repair', time: '10 min ago', unread: true },
-  { id: 'n3', icon: '⭐', bg: '#FEF9C3', title: 'New rating received', sub: 'Tunde gave you 5 stars!', time: '1 hr ago', unread: true },
-  { id: 'n4', icon: '✅', bg: '#D1FAE5', title: 'Job completed — payment released', sub: '₦22,000 released for AC Servicing', time: '3 hrs ago', unread: false },
-  { id: 'n5', icon: '💬', bg: '#DBEAFE', title: 'New message', sub: 'Fatima: I\'m 5 minutes away!', time: '5 hrs ago', unread: false },
-  { id: 'n6', icon: '🎉', bg: '#EDE9FE', title: 'Referral bonus earned!', sub: 'Kola signed up using your code. +₦300 added.', time: 'Yesterday', unread: false },
-  { id: 'n7', icon: '⚠️', bg: '#FEE2E2', title: 'Dispute update', sub: 'Your dispute #0042 has been resolved.', time: 'Mar 3', unread: false },
+  { id: 'n1', icon: ICONS.verification, bg: '#D1FAE5', title: 'Helper accepted your job', sub: 'Emeka Obi accepted Kitchen Sink Repair', time: '2 min ago', unread: true },
+  { id: 'n2', icon: ICONS.lock,         bg: '#FEF9C3', title: 'Escrow funded', sub: '₦15,000 secured for Kitchen Sink Repair', time: '10 min ago', unread: true },
+  { id: 'n3', icon: ICONS.star,         bg: '#FEF9C3', title: 'New rating received', sub: 'Tunde gave you 5 stars!', time: '1 hr ago', unread: true },
+  { id: 'n4', icon: ICONS.verification, bg: '#D1FAE5', title: 'Job completed — payment released', sub: '₦22,000 released for AC Servicing', time: '3 hrs ago', unread: false },
+  { id: 'n5', icon: ICONS.chat,         bg: '#DBEAFE', title: 'New message', sub: 'Fatima: I\'m 5 minutes away!', time: '5 hrs ago', unread: false },
+  { id: 'n6', icon: ICONS.reward,       bg: '#EDE9FE', title: 'Referral bonus earned!', sub: 'Kola signed up using your code. +₦300 added.', time: 'Yesterday', unread: false },
+  { id: 'n7', icon: ICONS.notification, bg: '#FEE2E2', title: 'Dispute update', sub: 'Your dispute #0042 has been resolved.', time: 'Mar 3', unread: false },
 ];
 
 const TABS = ['All', 'Jobs', 'Payments', 'System'];
@@ -22,9 +23,9 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
   const markAllRead = () => { haptic('light'); setNotifs(ns => ns.map(n => ({ ...n, unread: false }))); };
 
   const filtered = notifs.filter(n => {
-    if (activeTab === 'Jobs') return ['🟢', '✅', '⚠️'].includes(n.icon);
-    if (activeTab === 'Payments') return ['🔒', '🎉'].includes(n.icon);
-    if (activeTab === 'System') return ['⭐', '💬'].includes(n.icon);
+    if (activeTab === 'Jobs') return [ICONS.verification, ICONS.notification].includes(n.icon);
+    if (activeTab === 'Payments') return [ICONS.lock, ICONS.reward].includes(n.icon);
+    if (activeTab === 'System') return [ICONS.star, ICONS.chat].includes(n.icon);
     return true;
   });
 
@@ -57,7 +58,9 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">🔔</div>
+          <div className="empty-icon">
+            <StickyIcon src={ICONS.notification} size={64} style={{ opacity: 0.2 }} />
+          </div>
           <div className="empty-title">You're all caught up</div>
           <div className="empty-sub">We'll ping you when something moves.</div>
         </div>
@@ -70,9 +73,9 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
           >
             <div
               className="notif-icon"
-              style={{ background: n.bg, fontSize: '1.25rem' }}
+              style={{ background: n.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              {n.icon}
+              <StickyIcon src={n.icon} size={24} />
             </div>
             <div style={{ flex: 1 }}>
               <div style={{
@@ -135,7 +138,9 @@ export function ReferralScreen({ onBack }: { onBack: () => void }) {
       <div style={{ padding: '20px' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <div style={{ fontSize: '3rem', marginBottom: 8 }}>🎁</div>
+          <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}>
+            <StickyIcon src={ICONS.reward} size={80} />
+          </div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 6 }}>Invite friends, earn cash</h2>
           <p style={{ color: 'var(--text-secondary)', lineHeight: 1.5, fontSize: '0.9375rem' }}>
             Earn ₦300 for every new helper who completes their first job using your link.
@@ -152,27 +157,28 @@ export function ReferralScreen({ onBack }: { onBack: () => void }) {
         <button
           id="copy-referral-code"
           className="btn btn-primary btn-full btn-bounce"
-          style={{ borderRadius: 'var(--radius-md)', marginBottom: 12 }}
+          style={{ borderRadius: 'var(--radius-md)', marginBottom: 12, gap: 10 }}
           onClick={copy}
         >
-          {copied ? '✓ Copied!' : '📋 Copy Code'}
+          {copied ? <StickyIcon src={ICONS.verification} size={18} style={{ filter: 'brightness(0) invert(1)' }} /> : <StickyIcon src={ICONS.receipt} size={18} style={{ filter: 'brightness(0) invert(1)' }} />}
+          {copied ? 'Copied!' : 'Copy Code'}
         </button>
 
         {/* Share row */}
         <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
           {[
-            { icon: '💬', label: 'WhatsApp', bg: '#25D366', color: 'white' },
-            { icon: '🐦', label: 'Twitter', bg: '#1DA1F2', color: 'white' },
-            { icon: '🔗', label: 'Copy Link', bg: 'var(--bg-elevated)', color: 'var(--text-primary)' },
+            { icon: ICONS.chat,     label: 'WhatsApp', bg: '#25D366', color: 'white' },
+            { icon: ICONS.globe,    label: 'Twitter',  bg: '#1DA1F2', color: 'white' },
+            { icon: ICONS.library,  label: 'Link',     bg: 'var(--bg-elevated)', color: 'var(--text-primary)' },
           ].map(s => (
             <button key={s.label} style={{
               flex: 1, padding: '12px', borderRadius: 'var(--radius-md)',
               background: s.bg, color: s.color,
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-              fontSize: '1.25rem', fontWeight: 600, border: 'none', cursor: 'pointer',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+              border: 'none', cursor: 'pointer',
             }}>
-              {s.icon}
-              <span style={{ fontSize: '0.6875rem' }}>{s.label}</span>
+              <StickyIcon src={s.icon} size={24} style={{ filter: s.color === 'white' ? 'brightness(0) invert(1)' : 'none' }} />
+              <span style={{ fontSize: '0.6875rem', fontWeight: 600 }}>{s.label}</span>
             </button>
           ))}
         </div>

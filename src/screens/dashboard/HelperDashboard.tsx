@@ -104,7 +104,7 @@ export function HelperDashboard({ onNavigate }: { onNavigate: (screen: string) =
         {[
           { label: "Today's Earnings", value: todayEarnings, icon: ICONS.money },
           { label: 'Jobs Today',       value: String(todayJobs), icon: ICONS.jobs },
-          { label: 'Rating',           value: '4.9 ⭐',          icon: ICONS.star },
+          { label: 'Rating',           value: '4.9',             icon: ICONS.star },
         ].map(s => (
           <div key={s.label} className="stat-card" style={{ flex: 1 }}>
             <StickyIcon src={s.icon} size={28} alt={s.label} style={{ margin: '0 auto 4px' }} />

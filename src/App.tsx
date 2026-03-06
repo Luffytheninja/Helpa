@@ -6,7 +6,8 @@ import { SplashScreen, PhoneScreen, OTPScreen, SetupScreen } from './screens/aut
 import { CustomerOnboarding, HelperOnboarding } from './screens/auth/OnboardingScreens';
 
 // Bottom nav + shared
-import { BottomNav } from './components/ui';
+import { BottomNav, StickyIcon } from './components/ui';
+import { ICONS } from './constants';
 
 // Dashboard
 import { CustomerDashboard } from './screens/dashboard/CustomerDashboard';
@@ -26,6 +27,10 @@ import { ProfileScreen, SettingsScreen } from './screens/profile/ProfileScreens'
 // Misc
 import { NotificationsScreen, ReferralScreen } from './screens/misc/NotificationsAndReferral';
 
+// Chat & AI
+import { ChatScreen } from './screens/chat/ChatScreen';
+import { AIAssistantScreen } from './screens/chat/AIAssistantScreen';
+
 type NavTab = 'home' | 'jobs' | 'wallet' | 'chat' | 'profile';
 type SubScreen =
   | null
@@ -37,7 +42,9 @@ type SubScreen =
   | 'notifications'
   | 'settings'
   | 'referral'
-  | 'add-funds';
+  | 'add-funds'
+  | 'chat'
+  | 'ai-assistant';
 
 export default function App() {
   const { authState } = useApp();
@@ -80,6 +87,12 @@ export default function App() {
   if (subScreen === 'referral') {
     return <ReferralScreen onBack={goBack} />;
   }
+  if (subScreen === 'chat') {
+    return <ChatScreen onBack={goBack} />;
+  }
+  if (subScreen === 'ai-assistant') {
+    return <AIAssistantScreen onBack={goBack} />;
+  }
 
   // ── MAIN APP SHELL ─────────────────────────────────────────────
   return <AppShell activeTab={activeTab} setActiveTab={setActiveTab} navigate={navigate} />;
@@ -115,6 +128,22 @@ function AppShell({
         )}
         {activeTab === 'profile' && <ProfileScreen onNavigate={navigate} />}
       </div>
+
+      {/* Global AI Assistant Floating Action Button */}
+      <button 
+        className="btn-bounce"
+        onClick={() => navigate('ai-assistant')}
+        style={{
+          position: 'fixed', bottom: 84, right: 20, zIndex: 40,
+          width: 56, height: 56, borderRadius: '50%',
+          background: 'var(--brand-green)', color: 'white',
+          boxShadow: 'var(--shadow-primary)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center'
+        }}
+        aria-label="Open AI Assistant"
+      >
+        <StickyIcon src={ICONS.help} size={30} style={{ filter: 'brightness(0) invert(1)' }} />
+      </button>
 
       {/* Bottom Nav */}
       <BottomNav
@@ -191,7 +220,7 @@ function JobsListTab({ navigate }: { navigate: (s: string) => void }) {
 // ── Conversations List ────────────────────────────────────────────
 function ConversationsList({ navigate }: { navigate: (s: string) => void }) {
   const convos = [
-    { name: 'Emeka Obi',    last: 'On my way now 🚗',           time: '10:19', unread: 2 },
+    { name: 'Emeka Obi',    last: 'On my way now',              time: '10:19', unread: 2 },
     { name: 'Fatima A.',    last: 'Thank you for the rating!',   time: '9:40',  unread: 0 },
     { name: 'Chidi Eze',    last: 'I can be there in 30 mins.',  time: 'Yesterday', unread: 0 },
   ];
@@ -199,7 +228,25 @@ function ConversationsList({ navigate }: { navigate: (s: string) => void }) {
   return (
     <div>
       <div style={{ padding: '20px 20px 8px' }}>
-        <h1 style={{ fontSize: '1.375rem', fontWeight: 700 }}>Messages</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <h1 style={{ fontSize: '1.375rem', fontWeight: 700 }}>Messages</h1>
+          <button style={{ background: 'var(--brand-green-light)', color: 'var(--brand-green)', border: '1px solid var(--brand-green)', padding: '6px 12px', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <StickyIcon src={ICONS.help} size={14} /> AI Inbox
+          </button>
+        </div>
+        
+        {/* AI Summary Block */}
+        <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', background: 'var(--brand-green-light)', border: '1px solid var(--brand-green)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: '50%', background: 'var(--brand-green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <StickyIcon src={ICONS.help} size={20} style={{ filter: 'brightness(0) invert(1)' }} />
+          </div>
+          <div>
+            <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--brand-green)', fontWeight: 800, marginBottom: 4 }}>Daily Briefing</div>
+            <div style={{ fontSize: '0.875rem', color: 'var(--text-primary)', lineHeight: 1.5, fontWeight: 500 }}>
+              Emeka is on his way for the sink repair. No other urgent jobs need your attention right now.
+            </div>
+          </div>
+        </div>
       </div>
       {convos.map(c => (
         <div

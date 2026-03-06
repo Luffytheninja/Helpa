@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { TopBar, MapPlaceholder } from '../../components/ui';
+import { TopBar, MapPlaceholder, StickyIcon } from '../../components/ui';
+import { ICONS } from '../../constants';
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -41,7 +42,7 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
         {[1,2,3,4,5].map(n => (
           <div key={n} style={{
             flex: 1, height: 4, borderRadius: 2,
-            background: n <= step ? (step === 5 ? 'var(--brand-green)' : 'var(--action-orange)') : 'var(--separator)',
+            background: n <= step ? 'var(--brand-green)' : 'var(--separator)',
             transition: 'background 0.3s ease',
           }} />
         ))}
@@ -85,7 +86,7 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
                 marginBottom: 14,
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-                  <span>🤖</span>
+                  <StickyIcon src={ICONS.help} size={20} />
                   <span style={{ fontWeight: 700, fontSize: '0.875rem', color: 'var(--brand-green)' }}>AI Suggestion</span>
                 </div>
                 <p style={{ fontSize: '0.9375rem', color: 'var(--text-primary)', lineHeight: 1.5, marginBottom: 10 }}>
@@ -119,7 +120,11 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
               >
                 {aiLoading ? (
                   <span className="animate-spin" style={{ display: 'inline-block', width: 14, height: 14, border: '2px solid var(--brand-green)', borderTopColor: 'transparent', borderRadius: '50%' }} />
-                ) : '🤖 Improve'}
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <StickyIcon src={ICONS.help} size={14} /> Improve
+                  </div>
+                )}
               </button>
             </div>
 
@@ -128,9 +133,9 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
               marginTop: 16, padding: '12px 14px',
               background: '#FEF9C3', border: '1px solid #FDE68A',
               borderRadius: 'var(--radius-sm)', fontSize: '0.8125rem', color: '#92400E',
-              lineHeight: 1.5,
+              lineHeight: 1.5, display: 'flex', gap: 8, alignItems: 'center'
             }}>
-              ⚠️ This job might require a licensed electrician. Consider adjusting your description.
+              <StickyIcon src={ICONS.notification} size={16} /> This job might require a licensed electrician. Consider adjusting your description.
             </div>
           </div>
         )}
@@ -148,7 +153,7 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
               placeholder="Street address"
             />
             <button style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--brand-green)', fontWeight: 600, marginBottom: 20 }}>
-              📍 Use current location
+              <StickyIcon src={ICONS.location} size={18} /> Use current location
             </button>
 
             {/* Urgency toggle */}
@@ -163,9 +168,11 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
                     background: urgency === u ? (u === 'urgent' ? 'var(--action-orange-light)' : 'var(--brand-green-light)') : 'var(--bg-secondary)',
                     color: urgency === u ? (u === 'urgent' ? 'var(--action-orange)' : 'var(--brand-green)') : 'var(--text-muted)',
                     fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer', transition: 'all 0.2s',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
                   }}
                 >
-                  {u === 'urgent' ? '🔴 Urgent' : '🟢 Scheduled'}
+                  <StickyIcon src={u === 'urgent' ? ICONS.notification : ICONS.time} size={18} />
+                  {u === 'urgent' ? 'Urgent' : 'Scheduled'}
                 </button>
               ))}
             </div>
@@ -189,9 +196,9 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
             <div style={{
               background: 'var(--bg-elevated)', border: '1px solid var(--separator)',
               borderRadius: 'var(--radius-md)', padding: '14px', marginBottom: 20,
-              display: 'flex', alignItems: 'center', gap: 10,
+              display: 'flex', alignItems: 'center', gap: 12,
             }}>
-              <span style={{ fontSize: '1.5rem' }}>🤖</span>
+              <StickyIcon src={ICONS.help} size={32} />
               <div>
                 <div style={{ fontWeight: 700, fontSize: '0.9375rem' }}>AI Price Estimate</div>
                 <div style={{ color: 'var(--brand-green)', fontWeight: 600 }}>Typical in Ikeja: ₦12,000 – ₦18,000</div>
@@ -207,7 +214,7 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
                 type="range" min={3000} max={50000} step={500}
                 value={budget}
                 onChange={e => setBudget(Number(e.target.value))}
-                style={{ width: '100%', accentColor: 'var(--action-orange)' }}
+                style={{ width: '100%', accentColor: 'var(--brand-green)' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', color: 'var(--text-muted)', marginTop: 4 }}>
                 <span>₦3k</span><span>₦50k</span>
@@ -234,8 +241,8 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
             </div>
 
             {/* Escrow info */}
-            <div className="escrow-badge" style={{ display: 'flex', fontSize: '0.875rem', padding: '12px 16px' }}>
-              🔒 Funds will be held safely until you rate the job.
+            <div className="escrow-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: '0.875rem', padding: '12px 16px', background: 'var(--brand-green-light)', border: '1px solid var(--brand-green)', color: 'var(--brand-green)', borderRadius: 'var(--radius-md)', width: '100%' }}>
+              <StickyIcon src={ICONS.lock} size={16} /> Funds will be held safely until you rate the job.
             </div>
           </div>
         )}
@@ -245,27 +252,32 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
           <div className="animate-slide-up">
             <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 16 }}>Review & Post</h2>
             <div className="card" style={{ padding: '18px', marginBottom: 16 }}>
-              <div style={{ display: 'flex', gap: 10, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--separator)' }}>
+              <div style={{ display: 'flex', gap: 12, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--separator)' }}>
                 <div style={{
                   width: 48, height: 48, borderRadius: 12,
                   background: 'var(--brand-green-light)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '1.5rem', flexShrink: 0,
-                }}>🔧</div>
+                  flexShrink: 0,
+                }}>
+                  <StickyIcon src={ICONS.wrench} size={28} />
+                </div>
                 <div>
                   <div style={{ fontWeight: 700 }}>Kitchen Sink Repair</div>
-                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.4, marginTop: 2 }}>
+                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', lineHeight: 1.4, marginTop: 2 }}>
                     {description || 'Kitchen sink leaking under cabinet. Possible pipe joint issue.'}
                   </div>
                 </div>
               </div>
               {[
-                ['📍 Location', 'Ikeja GRA, Lagos'],
-                ['⚡ Urgency', urgency === 'urgent' ? 'Urgent — ASAP' : 'Scheduled'],
-                ['💰 Budget', `₦${budget.toLocaleString()}`],
-              ].map(([k, v]) => (
-                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--separator)' }}>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.9375rem' }}>{k}</span>
+                { k: 'Location', v: 'Ikeja GRA, Lagos', icon: ICONS.location },
+                { k: 'Urgency', v: urgency === 'urgent' ? 'Urgent — ASAP' : 'Scheduled', icon: urgency === 'urgent' ? ICONS.notification : ICONS.time },
+                { k: 'Budget', v: `₦${budget.toLocaleString()}`, icon: ICONS.money },
+              ].map(({ k, v, icon }) => (
+                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--separator)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <StickyIcon src={icon} size={16} />
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem' }}>{k}</span>
+                  </div>
                   <span style={{ fontWeight: 600, fontSize: '0.9375rem' }}>{v}</span>
                 </div>
               ))}
@@ -295,14 +307,16 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
         {step === 5 && (
           <div className="animate-fade-in" style={{ textAlign: 'center', paddingTop: 24 }}>
             <MapPlaceholder height={200} showRadius />
-            <div style={{ marginTop: 24 }}>
-              <div className="animate-coin-drop" style={{ fontSize: '4rem', marginBottom: 12 }}>🔒</div>
+            <div style={{ marginTop: 32 }}>
+              <div className="animate-coin-drop" style={{ marginBottom: 20, display: 'flex', justifyContent: 'center' }}>
+                <StickyIcon src={ICONS.lock} size={80} />
+              </div>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 8 }}>Finding helpers nearby…</h2>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9375rem', lineHeight: 1.5 }}>
                 Funds secured in escrow. You'll be notified when a helper accepts.
               </p>
-              <div className="escrow-badge" style={{ display: 'inline-flex', marginTop: 16, fontSize: '0.875rem', padding: '10px 20px' }}>
-                🔒 ₦{budget.toLocaleString()} secured in escrow
+              <div className="escrow-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 24, fontSize: '0.875rem', padding: '12px 24px', background: 'var(--brand-green-light)', color: 'var(--brand-green)', border: '1.5px solid var(--brand-green)', borderRadius: 'var(--radius-md)' }}>
+                <StickyIcon src={ICONS.lock} size={16} /> ₦{budget.toLocaleString()} secured in escrow
               </div>
             </div>
           </div>

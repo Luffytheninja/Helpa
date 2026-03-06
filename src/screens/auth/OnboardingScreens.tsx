@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { StickyIcon } from '../../components/ui';
+import { ICONS } from '../../constants';
 import { useApp } from '../../context/AppContext';
 
 // ───── Customer Onboarding ─────
@@ -19,7 +21,7 @@ export function CustomerOnboarding() {
         {Array.from({ length: totalSteps }).map((_, i) => (
           <div key={i} style={{
             flex: 1, height: 4, borderRadius: 2,
-            background: i < step ? 'var(--action-orange)' : 'var(--separator)',
+            background: i < step ? 'var(--brand-green)' : 'var(--separator)',
             transition: 'background 0.3s ease',
           }} />
         ))}
@@ -61,10 +63,10 @@ function CustomerStep1() {
           background: 'var(--brand-green-light)',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', gap: 8, transition: 'all 0.2s',
+          cursor: 'pointer', gap: 12, transition: 'all 0.2s',
         }}>
-          <span style={{ fontSize: '2.5rem' }}>📷</span>
-          <span style={{ fontSize: '0.8125rem', color: 'var(--brand-green)', fontWeight: 600 }}>Upload photo</span>
+          <StickyIcon src={ICONS.phone} size={48} />
+          <span style={{ fontSize: '0.8125rem', color: 'var(--brand-green)', fontWeight: 700 }}>Upload photo</span>
         </div>
       </div>
     </div>
@@ -84,7 +86,7 @@ function CustomerStep2() {
           display: 'flex', alignItems: 'center', gap: 8, color: 'var(--brand-green)',
           fontWeight: 600, fontSize: '0.9375rem',
         }}>
-          📍 Use current location
+          <StickyIcon src={ICONS.location} size={18} /> Use current location
         </button>
       </div>
     </div>
@@ -110,7 +112,9 @@ function CustomerStep3() {
 function CustomerStep4() {
   return (
     <div className="animate-slide-up" style={{ textAlign: 'center', paddingTop: 32 }}>
-      <div style={{ fontSize: '5rem', marginBottom: 20 }}>🤝</div>
+      <div style={{ marginBottom: 24, display: 'flex', justifyContent: 'center' }}>
+        <StickyIcon src={ICONS.reward} size={100} />
+      </div>
       <h1 style={{ fontSize: '1.875rem', fontWeight: 700, marginBottom: 12 }}>You're ready.</h1>
       <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '1rem' }}>
         Post your first job and a verified helper will be nearby.
@@ -138,7 +142,7 @@ export function HelperOnboarding() {
           {Array.from({ length: totalSteps }).map((_, i) => (
             <div key={i} style={{
               flex: 1, height: 4, borderRadius: 2,
-              background: i < step ? 'var(--action-orange)' : 'var(--separator)',
+              background: i < step ? 'var(--brand-green)' : 'var(--separator)',
               transition: 'background 0.3s ease',
             }} />
           ))}
@@ -167,14 +171,14 @@ export function HelperOnboarding() {
 }
 
 const SKILLS = [
-  { id: 'plumbing', emoji: '🔧', label: 'Plumbing' },
-  { id: 'electrical', emoji: '⚡', label: 'Electrical' },
-  { id: 'driving', emoji: '🚗', label: 'Driving' },
-  { id: 'cleaning', emoji: '🧹', label: 'Cleaning' },
-  { id: 'errands', emoji: '📦', label: 'Errands' },
-  { id: 'tech', emoji: '💻', label: 'Tech Repair' },
-  { id: 'student', emoji: '📚', label: 'Student Help' },
-  { id: 'other', emoji: '✨', label: 'Other' },
+  { id: 'plumbing', icon: ICONS.plumbing,    label: 'Plumbing' },
+  { id: 'electrical', icon: ICONS.electrical,  label: 'Electrical' },
+  { id: 'driving', icon: ICONS.driver,      label: 'Driving' },
+  { id: 'cleaning', icon: ICONS.cleaning,    label: 'Cleaning' },
+  { id: 'errands', icon: ICONS.errands,     label: 'Errands' },
+  { id: 'tech', icon: ICONS.techRepair,  label: 'Tech Repair' },
+  { id: 'student', icon: ICONS.studentHelp, label: 'Student Help' },
+  { id: 'other', icon: ICONS.help,        label: 'Other' },
 ];
 
 function HelperStep1() {
@@ -200,8 +204,10 @@ function HelperStep1() {
               cursor: 'pointer',
             }}
           >
-            <span style={{ fontSize: '1.75rem' }}>{skill.emoji}</span>
-            <span style={{ fontWeight: 600, fontSize: '0.875rem', color: selected.includes(skill.id) ? 'var(--brand-green)' : 'var(--text-primary)' }}>{skill.label}</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+              <StickyIcon src={skill.icon} size={32} />
+              <span style={{ fontWeight: 700, fontSize: '0.875rem', color: selected.includes(skill.id) ? 'var(--brand-green)' : 'var(--text-primary)' }}>{skill.label}</span>
+            </div>
           </button>
         ))}
       </div>
@@ -231,13 +237,13 @@ function HelperStep2() {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{
           width: 150, height: 150, borderRadius: '50%',
-          border: '3px dashed var(--action-orange)',
-          background: 'var(--action-orange-light)',
+          border: '3px dashed var(--brand-green)',
+          background: 'var(--brand-green-light)',
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          cursor: 'pointer', gap: 8,
+          cursor: 'pointer', gap: 12,
         }}>
-          <span style={{ fontSize: '2.5rem' }}>🤳</span>
-          <span style={{ fontSize: '0.8125rem', color: 'var(--action-orange)', fontWeight: 600 }}>Upload photo</span>
+          <StickyIcon src={ICONS.phone} size={48} />
+          <span style={{ fontSize: '0.8125rem', color: 'var(--brand-green)', fontWeight: 700 }}>Upload photo</span>
         </div>
       </div>
     </div>
@@ -346,7 +352,7 @@ function HelperStep6() {
       <MapPreview height={200} />
       <input className="input-field" placeholder="Street address" style={{ marginTop: 14 }} defaultValue="45 Eko Street, Surulere, Lagos" />
       <button style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--brand-green)', fontWeight: 600, marginTop: 12 }}>
-        📍 Use current location
+        <StickyIcon src={ICONS.location} size={18} /> Use current location
       </button>
     </div>
   );
@@ -425,7 +431,9 @@ function HelperStep8() {
         </div>
         {verifications.map(v => (
           <div key={v.label} className="verify-row">
-            <div className={`verify-icon ${v.status}`}>{v.status === 'done' ? '✓' : '⏳'}</div>
+            <div className={`verify-icon ${v.status}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <StickyIcon src={v.status === 'done' ? ICONS.verification : ICONS.time} size={14} style={{ filter: v.status === 'done' ? 'brightness(0) invert(1)' : 'none' }} />
+            </div>
             <span style={{ fontSize: '0.9375rem', fontWeight: 500 }}>{v.label}</span>
             <span style={{ marginLeft: 'auto', fontSize: '0.8125rem', color: v.status === 'done' ? 'var(--soft-green)' : 'var(--text-muted)', fontWeight: 600 }}>
               {v.status === 'done' ? 'Verified' : 'Pending'}
@@ -454,7 +462,7 @@ function MapPreview({ height = 180 }: { height?: number }) {
     <div className="map-placeholder" style={{ height, borderRadius: 'var(--radius-md)' }}>
       <div className="map-grid" />
       <div className="map-pulse">
-        <span style={{ fontSize: '1.5rem' }}>📍</span>
+        <StickyIcon src={ICONS.location} size={32} />
       </div>
     </div>
   );

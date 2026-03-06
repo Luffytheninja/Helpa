@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { StickyIcon } from '../../components/ui';
+import { ICONS } from '../../constants';
 import { useApp } from '../../context/AppContext';
 
 // ───── Welcome Splash ─────
@@ -45,7 +47,7 @@ export function SplashScreen() {
           margin: '0 auto 28px',
           boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
         }}>
-          <span style={{ fontSize: '3rem' }}>🧰</span>
+          <StickyIcon src={ICONS.wrench} size={48} style={{ opacity: 0.9 }} />
         </div>
 
         <h1 style={{
@@ -67,9 +69,9 @@ export function SplashScreen() {
             onClick={() => setAuthState('phone')}
             style={{
               background: 'var(--action-orange)', color: 'white',
-              boxShadow: '0 6px 24px rgba(249,115,22,0.5)',
-              fontSize: '1.0625rem', fontWeight: 600, width: '100%',
-              borderRadius: '16px',
+              boxShadow: '0 6px 24px rgba(249,115,22,0.4)',
+              fontSize: '1.0625rem', fontWeight: 700, width: '100%',
+              borderRadius: '20px', padding: '18px 24px'
             }}
           >
             Get Started
@@ -273,29 +275,31 @@ export function SetupScreen() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
         {[
-          { id: 'customer' as const, emoji: '🧑', title: 'I need help', sub: 'Post jobs, hire helpers' },
-          { id: 'helper'   as const, emoji: '🔧', title: 'I want to earn', sub: 'Complete jobs, get paid' },
+          { id: 'customer' as const, icon: ICONS.reward, title: 'I need help', sub: 'Post jobs, hire helpers' },
+          { id: 'helper'   as const, icon: ICONS.wrench,  title: 'I want to earn', sub: 'Complete jobs, get paid' },
         ].map(opt => (
           <button
             key={opt.id}
             onClick={() => setSelected(opt.id)}
             style={{
               background: selected === opt.id ? 'var(--brand-green-light)' : 'var(--bg-secondary)',
-              border: selected === opt.id ? '2px solid var(--brand-green)' : '2px solid var(--separator)',
+              border: selected === opt.id ? '2px solid var(--brand-green)' : '1.5px solid var(--separator)',
               borderRadius: 'var(--radius-md)',
-              padding: '20px',
+              padding: '24px 20px',
               textAlign: 'left',
               display: 'flex', alignItems: 'center', gap: 16,
               transition: 'all 0.2s ease',
             }}
           >
-            <span style={{ fontSize: '2rem' }}>{opt.emoji}</span>
-            <div>
+            <StickyIcon src={opt.icon} size={32} />
+            <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 700, fontSize: '1.0625rem', marginBottom: 2 }}>{opt.title}</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{opt.sub}</div>
+              <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{opt.sub}</div>
             </div>
             {selected === opt.id && (
-              <div style={{ marginLeft: 'auto', color: 'var(--brand-green)', fontSize: '1.25rem' }}>✓</div>
+              <div style={{ color: 'var(--brand-green)', display: 'flex' }}>
+                <StickyIcon src={ICONS.verification} size={24} />
+              </div>
             )}
           </button>
         ))}

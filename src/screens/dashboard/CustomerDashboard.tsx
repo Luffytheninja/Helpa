@@ -35,16 +35,15 @@ export function CustomerDashboard({ onNavigate }: { onNavigate: (screen: string)
       <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Avatar name={userName} size={40} ring="verified" src={AVATARS.me} />
         <div style={{
-          display: 'flex', alignItems: 'center', gap: 6,
+          display: 'flex', alignItems: 'center', gap: 8,
           background: 'var(--bg-elevated)', borderRadius: 'var(--radius-full)',
-          padding: '8px 14px', border: '1px solid var(--separator)',
+          padding: '8px 16px', border: '1px solid var(--separator)',
           cursor: 'pointer',
         }}
           onClick={() => haptic('light')}
         >
-          <span style={{ fontSize: '0.875rem' }}>📍</span>
-          <span style={{ fontSize: '0.875rem', fontWeight: 500 }}>Ikeja, Lagos</span>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>▾</span>
+          <StickyIcon src={ICONS.location} size={18} />
+          <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>Ikeja, Lagos</span>
         </div>
         <button
           id="notif-bell-customer"
@@ -67,7 +66,7 @@ export function CustomerDashboard({ onNavigate }: { onNavigate: (screen: string)
       {/* Greeting */}
       <div style={{ padding: '0 20px 20px' }}>
         <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 2 }}>
-          {greeting}, {userName.split(' ')[0]}. 👋
+          {greeting}, {userName.split(' ')[0]}.
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9375rem' }}>What do you need help with today?</p>
       </div>
@@ -76,11 +75,11 @@ export function CustomerDashboard({ onNavigate }: { onNavigate: (screen: string)
       <div style={{ padding: '0 20px 20px' }}>
         <button
           id="post-urgent-job"
-          className="btn btn-primary btn-full btn-lg btn-bounce"
+          className="btn btn-orange btn-full btn-lg btn-bounce"
           onClick={() => { haptic('medium'); onNavigate('post-job'); }}
-          style={{ borderRadius: 'var(--radius-md)', fontSize: '1.0625rem', fontWeight: 700, letterSpacing: '-0.01em' }}
+          style={{ borderRadius: 'var(--radius-md)', fontSize: '1.0625rem', fontWeight: 700, letterSpacing: '-0.01em', gap: 10 }}
         >
-          + Post Urgent Job
+          <StickyIcon src={ICONS.notification} size={20} style={{ filter: 'brightness(0) invert(1)' }} /> Post Urgent Job
         </button>
       </div>
 
@@ -112,8 +111,8 @@ export function CustomerDashboard({ onNavigate }: { onNavigate: (screen: string)
                       color: job.status === 'In Progress' ? '#C2410C' : '#166534',
                       fontSize: '0.75rem', fontWeight: 700, marginBottom: 4, textAlign: 'right',
                     }}>{job.status}</div>
-                    <div style={{ fontSize: '0.8125rem', fontWeight: 700, textAlign: 'right', color: 'var(--brand-green)' }}>
-                      🔒 {job.escrow}
+                    <div style={{ fontSize: '0.8125rem', fontWeight: 700, textAlign: 'right', color: 'var(--brand-green)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      <StickyIcon src={ICONS.lock} size={14} /> {job.escrow}
                     </div>
                   </div>
                 </div>

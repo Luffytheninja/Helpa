@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TopBar, Avatar, TrustBadge } from '../../components/ui';
-import { AVATARS } from '../../constants';
+import { TopBar, Avatar, TrustBadge, StickyIcon } from '../../components/ui';
+import { AVATARS, ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
 
 const HELPERS = [
@@ -34,9 +34,9 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
       />
 
       <div style={{ padding: '12px 20px 0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', background: 'var(--action-orange-light)', border: '1px solid #FED7AA', borderRadius: 'var(--radius-md)', marginBottom: 12 }}>
-          <span>🟠</span>
-          <span style={{ fontSize: '0.875rem', color: '#C2410C', fontWeight: 500 }}>Urgent job broadcast active — helpers are seeing this now</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', background: 'var(--action-orange-light)', border: '1.5px solid #FED7AA', borderRadius: 'var(--radius-md)', marginBottom: 16 }}>
+          <StickyIcon src={ICONS.notification} size={24} />
+          <span style={{ fontSize: '0.875rem', color: '#C2410C', fontWeight: 600 }}>Urgent job broadcast active — helpers are seeing this now</span>
         </div>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: 4 }}>
           5 helpers applied · Select who you'd like
@@ -63,10 +63,16 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
                   <span style={{ fontWeight: 700, fontSize: '1rem' }}>{h.name}</span>
                   <TrustBadge level={h.trust} />
                 </div>
-                <div style={{ display: 'flex', gap: 12, fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: 8 }}>
-                  <span>⭐ {h.rating}</span>
-                  <span>📍 {h.distance}</span>
-                  <span>✅ {h.jobs} jobs</span>
+                <div style={{ display: 'flex', gap: 12, fontSize: '0.8125rem', color: 'var(--text-secondary)', marginBottom: 8, alignItems: 'center' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                    <StickyIcon src={ICONS.star} size={14} /> {h.rating}
+                  </span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                    <StickyIcon src={ICONS.location} size={14} /> {h.distance}
+                  </span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 3 }}>
+                    <StickyIcon src={ICONS.verification} size={14} /> {h.jobs} jobs
+                  </span>
                 </div>
                 {h.verified && (
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -146,9 +152,13 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
         <Avatar name="Emeka Obi" size={96} ring="active" src={AVATARS.emeka} />
         <h1 style={{ color: 'white', fontSize: '1.5rem', fontWeight: 700, marginTop: 12, marginBottom: 4 }}>Emeka Obi</h1>
         <TrustBadge level="elite" />
-        <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.875rem', marginTop: 6 }}>
-          ⭐ 4.9 · 214 jobs · Ikeja, Lagos
-        </p>
+        <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.875rem', marginTop: 10, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><StickyIcon src={ICONS.star} size={16} style={{ filter: 'brightness(0) invert(1)' }} /> 4.9</span>
+          <span style={{ opacity: 0.5 }}>|</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><StickyIcon src={ICONS.verification} size={16} style={{ filter: 'brightness(0) invert(1)' }} /> 214 jobs</span>
+          <span style={{ opacity: 0.5 }}>|</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><StickyIcon src={ICONS.location} size={16} style={{ filter: 'brightness(0) invert(1)' }} /> Ikeja, Lagos</span>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 16 }}>
           {[
             { label: 'Completion',     value: '98%'  },
@@ -168,19 +178,19 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
         <div className="card" style={{ padding: '16px', marginBottom: 16 }}>
           <div style={{ fontWeight: 700, marginBottom: 12 }}>Verifications</div>
           {[
-            { label: 'NIN Verified',      icon: '🪪' },
-            { label: 'BVN Linked',        icon: '🏦' },
-            { label: 'Address Verified',  icon: '📍' },
-            { label: 'Face Verified',     icon: '🤳' },
+            { label: 'NIN Verified',      icon: ICONS.passport },
+            { label: 'BVN Linked',        icon: ICONS.lock },
+            { label: 'Address Verified',  icon: ICONS.location },
+            { label: 'Face Verified',     icon: ICONS.profile },
           ].map(v => (
-            <div key={v.label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: '1px solid var(--separator)' }}>
-              <span style={{ fontSize: '1.125rem' }}>{v.icon}</span>
+            <div key={v.label} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--separator)' }}>
+              <StickyIcon src={v.icon} size={24} />
               <span style={{ flex: 1, fontSize: '0.9375rem', fontWeight: 500 }}>{v.label}</span>
               <span style={{
-                background: '#D1FAE5', color: '#065F46',
+                background: 'var(--brand-green-light)', color: 'var(--brand-green)',
                 fontSize: '0.75rem', fontWeight: 700,
-                padding: '2px 10px', borderRadius: 'var(--radius-full)',
-              }}>Verified ✓</span>
+                padding: '3px 12px', borderRadius: 'var(--radius-full)',
+              }}>Verified <StickyIcon src={ICONS.verification} size={12} style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: 2 }} /></span>
             </div>
           ))}
         </div>
