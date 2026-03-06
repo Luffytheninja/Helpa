@@ -105,7 +105,7 @@ export function ProfileScreen({ onNavigate }: { onNavigate: (s: string) => void 
             }}>
               <StickyIcon src={item.icon} size={24} alt={item.label} />
             </div>
-            <span style={{ fontWeight: 600, flex: 1, fontSize: '0.9375rem' }}>{item.label}</span>
+            <span style={{ fontWeight: 600, flex: 1, fontSize: '0.9375rem', color: 'var(--text-primary)' }}>{item.label}</span>
             <span style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>›</span>
           </button>
         ))}
@@ -140,7 +140,7 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
                 <div className={`settings-icon-wrap settings-icon-${item.color}`}>
                   <StickyIcon src={item.icon} size={20} alt={item.label} />
                 </div>
-                <span style={{ fontWeight: 500, fontSize: '0.9375rem' }}>{item.label}</span>
+                <span style={{ fontWeight: 500, fontSize: '0.9375rem', color: 'var(--text-primary)' }}>{item.label}</span>
               </div>
               <span style={{ color: 'var(--text-muted)' }}>›</span>
             </div>

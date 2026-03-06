@@ -272,7 +272,7 @@ export function SetupScreen() {
         />
       </div>
 
-      <p style={{ fontWeight: 600, marginBottom: 16 }}>How do you want to use Helpa?</p>
+      <p style={{ fontWeight: 600, marginBottom: 16, color: 'var(--text-primary)' }}>How do you want to use Helpa?</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
         {[

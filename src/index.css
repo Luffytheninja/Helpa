@@ -91,19 +91,19 @@
   --bg-elevated: #1e2f29;
   --surface-overlay: rgba(15, 26, 22, 0.92);
 
-  --brand-green: #1f7a63;
+  --brand-green: #26b38f;
   --brand-green-dark: #186050;
   --brand-green-light: #1e2f29;
   --brand-green-mid: #2a9073;
-  --soft-green: #3bc29a;
+  --soft-green: #4ade80;
   --action-orange: #ff8c42;
   --action-orange-dark: #e57120;
   --action-orange-hover: #3a2211;
   --action-orange-light: #2a1a0a;
 
   --text-primary: #e8f2ed;
-  --text-secondary: #a8c1b7;
-  --text-muted: #6e8e83;
+  --text-secondary: #c5d8d1;
+  --text-muted: #9ab3aa;
   --text-inverse: #0f1a16;
 
   --separator: #1e3028;

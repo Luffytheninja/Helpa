@@ -54,12 +54,10 @@ import {
   MdRocketLaunch, MdHelp, MdQrCode, MdBarChart, MdHealthAndSafety, MdLocalLibrary,
   MdLocationOn, MdLock, MdDoneAll, MdMoreVert, MdArrowBack,
   MdPhotoCamera, MdMic, MdCheck, MdArrowForward, MdFiberManualRecord,
-  MdSend, MdAdd
+  MdSend, MdAdd, MdStar, MdCheckCircle
 } from 'react-icons/md';
 
-// ─── Stickies SVG icon paths (served from /public/icons/) ─────────────────────
-// The `-1` variants are the coloured / duo-tone versions; plain are outline.
-const I = (name: string) => `/icons/${name}`;
+// ─── SVG icon paths (served from /public/icons/) ─────────────────────
 
 export const ICONS = {
   // Navigation
@@ -90,7 +88,7 @@ export const ICONS = {
   // Actions & misc
   search:       MdSearch,
   notification: MdNotifications,
-  star:         I('Star--Streamline-Stickies-1.svg'),
+  star:         MdStar,
   medal:        MdEmojiEvents,
   money:        MdAttachMoney,
   key:          MdVpnKey,
@@ -111,6 +109,6 @@ export const ICONS = {
   camera:       MdPhotoCamera,
   mic:          MdMic,
   rocket:       MdRocketLaunch,
-  verification: I('Validation-1--Streamline-Stickies-1.svg'),
+  verification: MdCheckCircle,
   lock:         MdLock,
 } as const;

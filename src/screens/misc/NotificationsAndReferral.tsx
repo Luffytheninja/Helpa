@@ -4,13 +4,13 @@ import { ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
 
 const NOTIFS = [
-  { id: 'n1', icon: ICONS.verification, bg: '#D1FAE5', title: 'Helper accepted your job', sub: 'Emeka Obi accepted Kitchen Sink Repair', time: '2 min ago', unread: true },
-  { id: 'n2', icon: ICONS.lock,         bg: '#FEF9C3', title: 'Escrow funded', sub: '₦15,000 secured for Kitchen Sink Repair', time: '10 min ago', unread: true },
-  { id: 'n3', icon: ICONS.star,         bg: '#FEF9C3', title: 'New rating received', sub: 'Tunde gave you 5 stars!', time: '1 hr ago', unread: true },
-  { id: 'n4', icon: ICONS.verification, bg: '#D1FAE5', title: 'Job completed — payment released', sub: '₦22,000 released for AC Servicing', time: '3 hrs ago', unread: false },
-  { id: 'n5', icon: ICONS.chat,         bg: '#DBEAFE', title: 'New message', sub: 'Fatima: I\'m 5 minutes away!', time: '5 hrs ago', unread: false },
-  { id: 'n6', icon: ICONS.reward,       bg: '#EDE9FE', title: 'Referral bonus earned!', sub: 'Kola signed up using your code. +₦300 added.', time: 'Yesterday', unread: false },
-  { id: 'n7', icon: ICONS.notification, bg: '#FEE2E2', title: 'Dispute update', sub: 'Your dispute #0042 has been resolved.', time: 'Mar 3', unread: false },
+  { id: 'n1', icon: ICONS.verification, bg: 'var(--status-success-bg)', color: 'var(--status-success-text)', title: 'Helper accepted your job', sub: 'Emeka Obi accepted Kitchen Sink Repair', time: '2 min ago', unread: true },
+  { id: 'n2', icon: ICONS.lock,         bg: 'var(--status-warning-bg)', color: 'var(--status-warning-text)', title: 'Escrow funded', sub: '₦15,000 secured for Kitchen Sink Repair', time: '10 min ago', unread: true },
+  { id: 'n3', icon: ICONS.star,         bg: 'var(--status-warning-bg)', color: 'var(--status-warning-text)', title: 'New rating received', sub: 'Tunde gave you 5 stars!', time: '1 hr ago', unread: true },
+  { id: 'n4', icon: ICONS.verification, bg: 'var(--status-success-bg)', color: 'var(--status-success-text)', title: 'Job completed — payment released', sub: '₦22,000 released for AC Servicing', time: '3 hrs ago', unread: false },
+  { id: 'n5', icon: ICONS.chat,         bg: 'var(--status-scheduled-bg)', color: 'var(--brand-green)', title: 'New message', sub: 'Fatima: I\'m 5 minutes away!', time: '5 hrs ago', unread: false },
+  { id: 'n6', icon: ICONS.reward,       bg: 'var(--status-contract-bg)', color: 'var(--status-contract-text)', title: 'Referral bonus earned!', sub: 'Kola signed up using your code. +₦300 added.', time: 'Yesterday', unread: false },
+  { id: 'n7', icon: ICONS.notification, bg: 'var(--status-danger-bg)', color: 'var(--status-danger-text)', title: 'Dispute update', sub: 'Your dispute #0042 has been resolved.', time: 'Mar 3', unread: false },
 ];
 
 const TABS = ['All', 'Jobs', 'Payments', 'System'];
@@ -37,7 +37,7 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
         left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title={`Notifications ${unreadCount > 0 ? `(${unreadCount})` : ''}`}
         right={
-          <button onClick={markAllRead} style={{ fontSize: '0.75rem', color: 'var(--brand-green)', fontWeight: 600 }}>
+          <button onClick={markAllRead} style={{ fontSize: '0.75rem', color: 'var(--soft-green)', fontWeight: 600 }}>
             Mark all read
           </button>
         }
@@ -73,7 +73,7 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
           >
             <div
               className="notif-icon"
-              style={{ background: n.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ background: n.bg, color: (n as any).color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <StickyIcon src={n.icon} size={24} />
             </div>
