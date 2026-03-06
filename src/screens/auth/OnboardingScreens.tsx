@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StickyIcon } from '../../components/ui';
 import { ICONS } from '../../constants';
 import { useApp } from '../../context/AppContext';
+import { MdArrowForward, MdRocketLaunch, MdWarning, MdCheckCircle, MdCheck, MdAssignment } from 'react-icons/md';
 
 // ───── Customer Onboarding ─────
 export function CustomerOnboarding() {
@@ -137,7 +138,9 @@ export function HelperOnboarding() {
   return (
     <div className="page-content no-nav" style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
       <div style={{ padding: '20px 24px 0', display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button onClick={() => step > 1 ? setStep(s => s - 1) : setAuthState('setup')} style={{ color: 'var(--text-muted)', fontSize: 20 }}>←</button>
+        <button onClick={() => step > 1 ? setStep(s => s - 1) : setAuthState('setup')} style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none' }}>
+          <StickyIcon src={ICONS.back} size={24} />
+        </button>
         <div style={{ flex: 1, display: 'flex', gap: 4 }}>
           {Array.from({ length: totalSteps }).map((_, i) => (
             <div key={i} style={{
@@ -162,8 +165,12 @@ export function HelperOnboarding() {
       </div>
 
       <div style={{ padding: '0 24px 40px' }}>
-        <button className="btn btn-primary btn-full btn-lg" onClick={next} style={{ borderRadius: 'var(--radius-md)' }}>
-          {step < totalSteps ? 'Next →' : 'Go Live 🚀'}
+        <button className="btn btn-primary btn-full btn-lg" onClick={next} style={{ borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          {step < totalSteps ? (
+            <>Next <MdArrowForward /></>
+          ) : (
+            <>Go Live <MdRocketLaunch /></>
+          )}
         </button>
       </div>
     </div>
@@ -232,7 +239,7 @@ function HelperStep2() {
         color: '#C2410C',
         display: 'flex', gap: 8, alignItems: 'center',
       }}>
-        ⚠️ This step cannot be skipped.
+        <MdWarning size={16} /> This step cannot be skipped.
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{
@@ -285,7 +292,7 @@ function HelperStep3() {
       )}
       {verified === 'done' && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#16A34A', fontWeight: 600 }}>
-          <span style={{ fontSize: '1.5rem' }}>✅</span> NIN Verified ✔
+          <MdCheckCircle size={24} /> NIN Verified <MdCheck size={18} />
         </div>
       )}
     </div>
@@ -337,8 +344,9 @@ function HelperStep5() {
         borderRadius: 'var(--radius-sm)',
         padding: '12px 16px',
         fontSize: '0.875rem', color: 'var(--brand-green)', fontWeight: 600,
+        display: 'flex', alignItems: 'center', gap: 8
       }}>
-        ✓ Account Name: Ayomide Okafor
+        <MdCheck /> Account Name: Ayomide Okafor
       </div>
     </div>
   );
@@ -443,14 +451,16 @@ function HelperStep8() {
       </div>
       <div style={{
         background: 'var(--brand-green-light)',
-        border: '1px solid var(--brand-green)',
+        border: '1.5px solid var(--brand-green)',
         borderRadius: 'var(--radius-sm)',
         padding: '12px 16px',
         fontSize: '0.875rem',
         color: 'var(--brand-green)',
         lineHeight: 1.5,
+        display: 'flex', gap: 10, alignItems: 'flex-start'
       }}>
-        📋 Your profile is under review. You'll go live within 24 hours after face verification.
+        <MdAssignment style={{ marginTop: 2, flexShrink: 0 }} /> 
+        <span>Your profile is under review. You'll go live within 24 hours after face verification.</span>
       </div>
     </div>
   );

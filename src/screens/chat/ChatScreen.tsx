@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Avatar, StickyIcon } from '../../components/ui';
 import { AVATARS, ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
+import { MdAdd, MdSend } from 'react-icons/md';
 
 const MESSAGES = [
   { id: 1, type: 'received', text: 'Hello! I\'ve seen your job post. I can fix the kitchen sink today.', time: '10:14 AM' },
@@ -17,12 +18,13 @@ export function ChatScreen({ onBack }: { onBack: () => void }) {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState(MESSAGES);
   const { haptic } = useHaptics();
+  const msgCounter = useRef(MESSAGES.length);
 
   const send = () => {
     if (!input.trim()) return;
     haptic('light');
     setMessages(m => [...m, {
-      id: Date.now(), type: 'sent', text: input.trim(), time: 'Now',
+      id: ++msgCounter.current, type: 'sent', text: input.trim(), time: 'Now',
     }]);
     setInput('');
   };
@@ -37,15 +39,21 @@ export function ChatScreen({ onBack }: { onBack: () => void }) {
         borderBottom: '1px solid var(--separator)',
         position: 'sticky', top: 0, zIndex: 10,
       }}>
-        <button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', background: 'none' }}>←</button>
+        <button onClick={() => { haptic('light'); onBack(); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, color: 'var(--text-muted)', background: 'none' }}>
+          <StickyIcon src={ICONS.back} size={24} />
+        </button>
         <Avatar name="Emeka Obi" size={40} ring="active" src={AVATARS.emeka} />
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, fontSize: '0.9375rem' }}>Emeka Obi</div>
-          <div style={{ fontSize: '0.75rem', color: 'var(--soft-green)', fontWeight: 500 }}>● Online</div>
+          <div style={{ fontSize: '0.75rem', color: 'var(--soft-green)', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
+            <StickyIcon src={ICONS.dot} size={10} style={{ color: 'var(--soft-green)' }} /> Online
+          </div>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button style={{ background: 'none' }}><StickyIcon src={ICONS.phone} size={24} /></button>
-          <button style={{ background: 'none', fontSize: '1.25rem', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}>⋮</button>
+          <button style={{ background: 'none', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <StickyIcon src={ICONS.more} size={24} />
+          </button>
         </div>
       </div>
 
@@ -75,7 +83,11 @@ export function ChatScreen({ onBack }: { onBack: () => void }) {
                   textAlign: msg.type === 'sent' ? 'right' : 'left',
                 }}>
                   {(msg as { time?: string }).time}
-                  {msg.type === 'sent' && ' ✓✓'}
+                  {msg.type === 'sent' && (
+                    <span style={{ color: '#3B82F6', marginLeft: 4, display: 'flex' }}>
+                      <StickyIcon src={ICONS.checkAll} size={14} />
+                    </span>
+                  )}
                 </div>
               </div>
             )}
@@ -109,14 +121,16 @@ export function ChatScreen({ onBack }: { onBack: () => void }) {
         </div>
 
         <div style={{
-          display: 'flex', gap: 10, alignItems: 'flex-end',
+          display: 'flex', gap: 10, alignItems: 'center',
           padding: '12px 16px 0',
         }}>
-          <button style={{ background: 'none', fontSize: '1.5rem', flexShrink: 0, color: 'var(--text-secondary)' }}>+</button>
+          <button style={{ background: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', flexShrink: 0, color: 'var(--text-secondary)' }}>
+            <MdAdd />
+          </button>
           <textarea
             className="input-field"
             rows={1}
-            placeholder="Type a message…"
+            placeholder="Type a message..."
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
@@ -126,13 +140,13 @@ export function ChatScreen({ onBack }: { onBack: () => void }) {
             id="chat-send-btn"
             onClick={send}
             style={{
-              width: 46, height: 46, borderRadius: '50%',
+              width: 44, height: 44, borderRadius: '50%',
               background: input.trim() ? 'var(--brand-green)' : 'var(--separator)',
               color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.125rem', flexShrink: 0, transition: 'background 0.2s',
+              fontSize: '1.25rem', flexShrink: 0, transition: 'all 0.2s',
             }}
           >
-            ➤
+            <MdSend />
           </button>
         </div>
       </div>

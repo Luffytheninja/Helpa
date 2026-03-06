@@ -5,28 +5,28 @@ import { useHaptics } from '../../hooks/useHaptics';
 
 const NEARBY_JOBS = [
   {
-    category: '🔧', title: 'Fix kitchen sink leak',
+    category: ICONS.plumbing, title: 'Fix kitchen sink leak',
     customerName: 'Bisi Adewale', customerRating: 4.8,
     location: 'Ikeja GRA', distance: '0.4km',
     urgency: 'urgent' as const, budget: '₦15,000',
     escrowFunded: true, applicants: 5,
   },
   {
-    category: '⚡', title: 'Electrical fault in office',
+    category: ICONS.electrical, title: 'Electrical fault in office',
     customerName: 'Tunde Afolabi', customerRating: 4.6,
     location: 'Lekki Phase 1', distance: '1.1km',
     urgency: 'scheduled' as const, budget: '₦25,000',
     escrowFunded: true, applicants: 2,
   },
   {
-    category: '🚗', title: 'Airport pickup — 3 passengers',
+    category: ICONS.driver, title: 'Airport pickup — 3 passengers',
     customerName: 'Chinyere Obi', customerRating: 5.0,
     location: 'Ajah', distance: '2.3km',
     urgency: 'urgent' as const, budget: '₦10,000',
     escrowFunded: false, applicants: 8,
   },
   {
-    category: '🧹', title: 'Deep-clean 4-bedroom apartment',
+    category: ICONS.cleaning, title: 'Deep-clean 4-bedroom apartment',
     customerName: 'Kola Adeleke', customerRating: 4.4,
     location: 'Yaba', distance: '3.1km',
     urgency: 'scheduled' as const, budget: '₦18,000',

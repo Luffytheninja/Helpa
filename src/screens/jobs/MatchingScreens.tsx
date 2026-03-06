@@ -24,7 +24,7 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Helpers Nearby"
         right={
           <span style={{ fontSize: '0.8125rem', color: 'var(--action-orange)', fontWeight: 600 }}>
@@ -81,7 +81,8 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
                         background: '#D1FAE5', color: '#065F46',
                         fontSize: '0.6875rem', fontWeight: 700,
                         padding: '2px 8px', borderRadius: 'var(--radius-full)',
-                      }}>✓ {v}</span>
+                        display: 'flex', alignItems: 'center', gap: 4
+                      }}><StickyIcon src={ICONS.check} size={10} /> {v}</span>
                     ))}
                   </div>
                 )}
@@ -199,12 +200,18 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
         <div className="card" style={{ padding: '16px', marginBottom: 16 }}>
           <div style={{ fontWeight: 700, marginBottom: 10 }}>Skills</div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            {['🔧 Plumbing', '⚡ Electrical', '🔩 General Repairs', '🚿 Bathroom'].map(s => (
-              <span key={s} style={{
+            {[
+              { label: 'Plumbing', icon: ICONS.plumbing },
+              { label: 'Electrical', icon: ICONS.electrical },
+              { label: 'General Repairs', icon: ICONS.wrench },
+              { label: 'Bathroom', icon: ICONS.cleaning }
+            ].map(s => (
+              <span key={s.label} style={{
                 padding: '6px 14px', borderRadius: 'var(--radius-full)',
                 background: 'var(--brand-green-light)', color: 'var(--brand-green)',
                 fontWeight: 600, fontSize: '0.8125rem',
-              }}>{s}</span>
+                display: 'flex', alignItems: 'center', gap: 6
+              }}><StickyIcon src={s.icon} size={14} /> {s.label}</span>
             ))}
           </div>
         </div>
@@ -217,7 +224,16 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
               <Avatar name={r.name} size={36} src={r.src} />
               <div>
                 <div style={{ fontWeight: 600, fontSize: '0.875rem' }}>{r.name}</div>
-                <div className="stars">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</div>
+                <div className="stars" style={{ display: 'flex', gap: 2, marginTop: 2 }}>
+                  {[...Array(5)].map((_, i) => (
+                    <StickyIcon 
+                      key={i} 
+                      src={ICONS.star} 
+                      size={14} 
+                      style={{ opacity: i < r.rating ? 1 : 0.3 }} 
+                    />
+                  ))}
+                </div>
               </div>
               <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--text-muted)' }}>{r.date}</span>
             </div>
@@ -233,7 +249,7 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
           onClick={() => { haptic('heavy'); onHire(); }}
           style={{ borderRadius: 'var(--radius-md)' }}
         >
-          Hire Now 🚀
+          Hire Now <StickyIcon src={ICONS.rocket} size={20} />
         </button>
       </div>
     </div>

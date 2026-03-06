@@ -79,7 +79,7 @@ export function CustomerDashboard({ onNavigate }: { onNavigate: (screen: string)
           onClick={() => { haptic('medium'); onNavigate('post-job'); }}
           style={{ borderRadius: 'var(--radius-md)', fontSize: '1.0625rem', fontWeight: 700, letterSpacing: '-0.01em', gap: 10 }}
         >
-          <StickyIcon src={ICONS.notification} size={20} style={{ filter: 'brightness(0) invert(1)' }} /> Post Urgent Job
+          <StickyIcon src={ICONS.notification} size={20} /> Post Urgent Job
         </button>
       </div>
 

@@ -142,7 +142,7 @@ function AppShell({
         }}
         aria-label="Open AI Assistant"
       >
-        <StickyIcon src={ICONS.help} size={30} style={{ filter: 'brightness(0) invert(1)' }} />
+        <StickyIcon src={ICONS.help} size={30} style={{ color: 'white' }} />
       </button>
 
       {/* Bottom Nav */}
@@ -207,9 +207,9 @@ function JobsListTab({ navigate }: { navigate: (s: string) => void }) {
             className="btn btn-primary btn-full btn-bounce"
             id="jobs-tab-post"
             onClick={() => navigate('post-job')}
-            style={{ borderRadius: 'var(--radius-md)' }}
+            style={{ borderRadius: 'var(--radius-md)', gap: 8 }}
           >
-            + Post a New Job
+            <StickyIcon src={ICONS.add} size={20} /> Post a New Job
           </button>
         </div>
       )}
@@ -238,7 +238,7 @@ function ConversationsList({ navigate }: { navigate: (s: string) => void }) {
         {/* AI Summary Block */}
         <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', background: 'var(--brand-green-light)', border: '1px solid var(--brand-green)', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
           <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: '50%', background: 'var(--brand-green)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <StickyIcon src={ICONS.help} size={20} style={{ filter: 'brightness(0) invert(1)' }} />
+            <StickyIcon src={ICONS.help} size={20} style={{ color: 'white' }} />
           </div>
           <div>
             <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--brand-green)', fontWeight: 800, marginBottom: 4 }}>Daily Briefing</div>

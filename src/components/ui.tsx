@@ -4,29 +4,36 @@ import { useHaptics } from '../hooks/useHaptics';
 
 // ─── Stickies Icon ──────────────────────────────────────────────────────────
 interface StickyIconProps {
-  src: string;
+  src: string | React.ComponentType<{ size?: number; color?: string; style?: React.CSSProperties }>;
   size?: number;
   alt?: string;
   style?: React.CSSProperties;
 }
 export function StickyIcon({ src, size = 28, alt = '', style }: StickyIconProps) {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      width={size}
-      height={size}
-      draggable={false}
-      style={{ objectFit: 'contain', display: 'block', flexShrink: 0, ...style }}
-    />
-  );
+  if (typeof src === 'string') {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        width={size}
+        height={size}
+        draggable={false}
+        style={{ objectFit: 'contain', display: 'block', flexShrink: 0, ...style }}
+      />
+    );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { filter: _filter, ...iconStyle } = style || {};
+  const IconComponent = src as React.ElementType;
+  return <IconComponent size={size} style={{ flexShrink: 0, display: 'block', ...iconStyle }} color="currentColor" />;
 }
 
 // ─── Bottom Nav ─────────────────────────────────────────────────────────────
 interface NavItem {
   id: string;
   label: string;
-  icon: string;
+  icon: string | React.ElementType;
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -194,7 +201,7 @@ export function Chip({ type, label }: ChipProps) {
 
 // ─── Category Button (replaces emoji-only buttons) ───────────────────────────
 interface CategoryBtnProps {
-  icon: string;
+  icon: string | React.ElementType;
   label: string;
   onClick?: () => void;
 }
@@ -222,7 +229,7 @@ export function CategoryBtn({ icon, label, onClick }: CategoryBtnProps) {
 
 // ─── Job Card ────────────────────────────────────────────────────────────────
 interface JobCardProps {
-  category: string;
+  category: string | React.ElementType;
   title: string;
   customerName: string;
   customerRating: number;
@@ -264,8 +271,8 @@ export function JobCard({
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             flexShrink: 0,
           }}>
-            {/* category is emoji string, display as-is */}
-            <span style={{ fontSize: '1.25rem' }}>{category}</span>
+            {/* Updated to use StickyIcon for category, supporting both images and Material Icons */}
+            <StickyIcon src={category} size={24} />
           </div>
           <div>
             <div style={{ fontWeight: 700, fontSize: '0.9375rem', lineHeight: 1.3, marginBottom: 2 }}>{title}</div>

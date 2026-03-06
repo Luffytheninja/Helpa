@@ -12,7 +12,7 @@ export function ActiveJobScreen({ onBack, onComplete }: { onBack: () => void; on
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Active Job"
       />
 
@@ -193,7 +193,7 @@ export function RatingFlow({ onBack, onDone }: { onBack: () => void; onDone: () 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Rate this Job"
       />
 
@@ -213,7 +213,7 @@ export function RatingFlow({ onBack, onDone }: { onBack: () => void; onDone: () 
               onMouseEnter={() => setHoveredStar(i)}
               onMouseLeave={() => setHoveredStar(0)}
             >
-              ★
+              <StickyIcon src={ICONS.star} size={24} />
             </button>
           ))}
         </div>

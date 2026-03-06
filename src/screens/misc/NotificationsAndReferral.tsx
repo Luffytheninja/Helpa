@@ -23,9 +23,9 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
   const markAllRead = () => { haptic('light'); setNotifs(ns => ns.map(n => ({ ...n, unread: false }))); };
 
   const filtered = notifs.filter(n => {
-    if (activeTab === 'Jobs') return [ICONS.verification, ICONS.notification].includes(n.icon);
-    if (activeTab === 'Payments') return [ICONS.lock, ICONS.reward].includes(n.icon);
-    if (activeTab === 'System') return [ICONS.star, ICONS.chat].includes(n.icon);
+    if (activeTab === 'Jobs') return ([ICONS.verification, ICONS.notification] as (string | React.ElementType)[]).includes(n.icon);
+    if (activeTab === 'Payments') return ([ICONS.lock, ICONS.reward] as (string | React.ElementType)[]).includes(n.icon);
+    if (activeTab === 'System') return ([ICONS.star, ICONS.chat] as (string | React.ElementType)[]).includes(n.icon);
     return true;
   });
 
@@ -34,7 +34,7 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
   return (
     <div style={{ paddingBottom: 80 }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title={`Notifications ${unreadCount > 0 ? `(${unreadCount})` : ''}`}
         right={
           <button onClick={markAllRead} style={{ fontSize: '0.75rem', color: 'var(--brand-green)', fontWeight: 600 }}>

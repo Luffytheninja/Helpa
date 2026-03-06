@@ -32,7 +32,7 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh', background: 'var(--bg-primary)' }}>
       {/* Header */}
       <TopBar
-        left={<button onClick={step === 1 ? onBack : () => setStep(s => (s - 1) as Step)} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={step === 1 ? onBack : () => setStep(s => (s - 1) as Step)} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title={step === 5 ? 'Finding Helpers…' : 'Post a Job'}
         right={<span style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{step}/5</span>}
       />
@@ -93,8 +93,8 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
                   "{aiSuggestion}"
                 </p>
                 <div style={{ display: 'flex', gap: 8 }}>
-                  <button className="btn btn-sm btn-green" onClick={() => setDescription(aiSuggestion)} style={{ borderRadius: 8 }}>
-                    ✓ Use this
+                  <button className="btn btn-sm btn-green" onClick={() => setDescription(aiSuggestion)} style={{ borderRadius: 8, gap: 6 }}>
+                    <StickyIcon src={ICONS.check} size={16} /> Use this
                   </button>
                   <button className="btn btn-sm btn-secondary" onClick={() => setAiSuggestion(null)} style={{ borderRadius: 8 }}>
                     Dismiss
@@ -104,8 +104,8 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
             )}
 
             <div style={{ display: 'flex', gap: 10 }}>
-              <button className="btn btn-secondary btn-sm" style={{ borderRadius: 8 }}>📷 Add photo</button>
-              <button className="btn btn-secondary btn-sm" style={{ borderRadius: 8 }}>🎤 Voice</button>
+              <button className="btn btn-secondary btn-sm" style={{ borderRadius: 8, gap: 6 }}><StickyIcon src={ICONS.camera} size={18} /> Add photo</button>
+              <button className="btn btn-secondary btn-sm" style={{ borderRadius: 8, gap: 6 }}><StickyIcon src={ICONS.mic} size={18} /> Voice</button>
               <button
                 className="btn btn-sm"
                 onClick={handleAI}
@@ -329,9 +329,21 @@ export function PostJobFlow({ onBack, onComplete }: { onBack: () => void; onComp
           id="post-job-next"
           className="btn btn-primary btn-full btn-lg btn-bounce"
           onClick={next}
-          style={{ borderRadius: 'var(--radius-md)' }}
+          style={{ borderRadius: 'var(--radius-md)', gap: 8 }}
         >
-          {step === 4 ? '🔒 Fund & Post Job' : step === 5 ? 'View Matches →' : 'Next →'}
+          {step === 4 ? (
+            <>
+              <StickyIcon src={ICONS.lock} size={20} /> Fund & Post Job
+            </>
+          ) : step === 5 ? (
+            <>
+              View Matches <StickyIcon src={ICONS.forward} size={20} />
+            </>
+          ) : (
+            <>
+              Next <StickyIcon src={ICONS.forward} size={20} />
+            </>
+          )}
         </button>
       </div>
     </div>

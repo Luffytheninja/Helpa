@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { StickyIcon } from '../../components/ui';
 import { ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
+import { MdArrowBack, MdSend } from 'react-icons/md';
 
 const INITIAL_MESSAGES = [
   { id: 1, type: 'received', text: 'Hi there! I am your Helpa AI assistant. How can I help you today?', time: 'Just now' },
@@ -18,13 +19,14 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [isTyping, setIsTyping] = useState(false);
   const { haptic } = useHaptics();
+  const msgCounter = useRef(0);
 
   const send = (text: string = input) => {
     if (!text.trim()) return;
     haptic('light');
     
     // Add user message
-    const newMsg = { id: Date.now(), type: 'sent', text: text.trim(), time: 'Now' };
+    const newMsg = { id: ++msgCounter.current, type: 'sent', text: text.trim(), time: 'Now' };
     setMessages(m => [...m, newMsg]);
     setInput('');
     setIsTyping(true);
@@ -34,7 +36,7 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
       setIsTyping(false);
       haptic('medium');
       setMessages(m => [...m, {
-        id: Date.now() + 1, type: 'received', 
+        id: ++msgCounter.current, type: 'received', 
         text: 'I can certainly help you with that! Could you provide a bit more detail about your location or the exact service you need?', 
         time: 'Now'
       }]);
@@ -51,13 +53,15 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
         color: 'white',
         position: 'sticky', top: 0, zIndex: 10,
       }}>
-        <button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'rgba(255,255,255,0.8)', background: 'none' }}>←</button>
+        <button onClick={() => { haptic('light'); onBack(); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: 'rgba(255,255,255,0.8)', background: 'none' }}><MdArrowBack /></button>
         <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <StickyIcon src={ICONS.help} size={24} style={{ filter: 'brightness(0) invert(1)' }} />
+          <StickyIcon src={ICONS.help} size={24} style={{ color: 'white' }} />
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, fontSize: '1rem', color: 'white' }}>Helpa AI</div>
-          <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>● Always here to help</div>
+          <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 4 }}>
+            <StickyIcon src={ICONS.dot} size={10} style={{ color: '#4ADE80' }} /> Always here to help
+          </div>
         </div>
       </div>
 
@@ -76,7 +80,7 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
           >
             {msg.type === 'received' && (
               <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--brand-green)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: 8, marginTop: 4, flexShrink: 0 }}>
-                <StickyIcon src={ICONS.help} size={16} style={{ filter: 'brightness(0) invert(1)' }} />
+                <StickyIcon src={ICONS.help} size={16} style={{ color: 'white' }} />
               </div>
             )}
             <div style={{ maxWidth: '78%' }}>
@@ -159,10 +163,10 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
               width: 46, height: 46, borderRadius: '50%',
               background: input.trim() ? 'var(--brand-green)' : 'var(--separator)',
               color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.125rem', flexShrink: 0, transition: 'background 0.2s',
+              fontSize: '1.25rem', flexShrink: 0, transition: 'background 0.2s',
             }}
           >
-            ➤
+            <MdSend />
           </button>
         </div>
       </div>
