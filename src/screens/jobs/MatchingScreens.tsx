@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TopBar, Avatar, TrustBadge, StickyIcon } from '../../components/ui';
 import { AVATARS, ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
+import { MdCheck } from 'react-icons/md';
 
 const HELPERS = [
   { name: 'Emeka Obi',       rating: 4.9, trust: 'elite'    as const, ring: 'active'   as const, distance: '0.3km', jobs: 214, verified: true,  src: AVATARS.emeka  },
@@ -116,7 +117,7 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
                 style={{ flex: 1, borderRadius: 8 }}
                 onClick={e => { e.stopPropagation(); handleSelect(h.name); }}
               >
-                Select ✓
+                Select <MdCheck size={16} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
               </button>
             </div>
           </div>
@@ -139,7 +140,7 @@ export function HelperProfileScreen({ onBack, onHire }: { onBack: () => void; on
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Helper Profile"
         showBorder={false}
       />

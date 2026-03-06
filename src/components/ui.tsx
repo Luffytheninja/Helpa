@@ -26,7 +26,11 @@ export function StickyIcon({ src, size = 28, alt = '', style }: StickyIconProps)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { filter: _filter, ...iconStyle } = style || {};
   const IconComponent = src as React.ElementType;
-  return <IconComponent size={size} style={{ flexShrink: 0, display: 'block', ...iconStyle }} color="currentColor" />;
+  return (
+    <span className="sticky-icon-svg" style={{ display: 'inline-flex', flexShrink: 0, ...iconStyle }}>
+      <IconComponent size={size} color="currentColor" />
+    </span>
+  );
 }
 
 // ─── Bottom Nav ─────────────────────────────────────────────────────────────

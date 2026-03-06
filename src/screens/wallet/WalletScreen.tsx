@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { TopBar } from '../../components/ui';
+import { TopBar, StickyIcon } from '../../components/ui';
+
 import { useHaptics } from '../../hooks/useHaptics';
+import { MdSavings, MdCheckCircle, MdOutbox, MdCardGiftcard, MdLock, MdUndo, MdArrowForward, MdCheck } from 'react-icons/md';
 
 const TRANSACTIONS = [
-  { id: 't1', type: 'credit', icon: '🔒', desc: 'Escrow funded — Kitchen Sink', amount: '+₦15,000', status: 'Pending', date: 'Today, 10:03 AM' },
-  { id: 't2', type: 'credit', icon: '✅', desc: 'Payment released — AC Service', amount: '+₦22,000', status: 'Completed', date: 'Yesterday' },
-  { id: 't3', type: 'debit',  icon: '💸', desc: 'Withdrawal to GTBank',         amount: '-₦30,000', status: 'Processed', date: 'Mar 3' },
-  { id: 't4', type: 'credit', icon: '🎉', desc: 'Referral bonus — Kola joined',  amount: '+₦300',    status: 'Completed', date: 'Mar 2' },
-  { id: 't5', type: 'debit',  icon: '🔒', desc: 'Escrow funded — Cleaning job', amount: '-₦18,000', status: 'Pending', date: 'Mar 1' },
-  { id: 't6', type: 'credit', icon: '↩️', desc: 'Refund — Disputed job #0042',  amount: '+₦18,000', status: 'Refunded', date: 'Feb 28' },
+  { id: 't1', type: 'credit', icon: MdLock,         desc: 'Escrow funded — Kitchen Sink', amount: '+₦15,000', status: 'Pending',   date: 'Today, 10:03 AM' },
+  { id: 't2', type: 'credit', icon: MdCheckCircle,  desc: 'Payment released — AC Service', amount: '+₦22,000', status: 'Completed', date: 'Yesterday' },
+  { id: 't3', type: 'debit',  icon: MdOutbox,       desc: 'Withdrawal to GTBank',          amount: '-₦30,000', status: 'Processed', date: 'Mar 3' },
+  { id: 't4', type: 'credit', icon: MdCardGiftcard, desc: 'Referral bonus — Kola joined',  amount: '+₦300',    status: 'Completed', date: 'Mar 2' },
+  { id: 't5', type: 'debit',  icon: MdSavings,      desc: 'Escrow funded — Cleaning job', amount: '-₦18,000', status: 'Pending',   date: 'Mar 1' },
+  { id: 't6', type: 'credit', icon: MdUndo,         desc: 'Refund — Disputed job #0042',  amount: '+₦18,000', status: 'Refunded',  date: 'Feb 28' },
 ];
 
 const FILTER_TABS = ['All', 'Earned', 'Spent', 'Pending'];
@@ -94,8 +96,11 @@ export function WalletScreen({ onNavigate }: { onNavigate: (s: string) => void }
               width: 44, height: 44, borderRadius: '50%',
               background: tx.type === 'credit' ? '#D1FAE5' : '#FEE2E2',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.2rem', flexShrink: 0,
-            }}>{tx.icon}</div>
+              flexShrink: 0,
+              color: tx.type === 'credit' ? '#065F46' : '#DC2626',
+            }}>
+              <StickyIcon src={tx.icon} size={22} />
+            </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontWeight: 600, fontSize: '0.9375rem', marginBottom: 2 }}>{tx.desc}</div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{tx.date}</div>
@@ -149,7 +154,9 @@ export function WalletScreen({ onNavigate }: { onNavigate: (s: string) => void }
                     />
                   </div>
                 </div>
-                <button className="btn btn-primary btn-full" onClick={() => { haptic('medium'); setWithdrawStep(2); }} style={{ borderRadius: 'var(--radius-md)' }}>Next →</button>
+                <button className="btn btn-primary btn-full" onClick={() => { haptic('medium'); setWithdrawStep(2); }} style={{ borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  Next <MdArrowForward size={18} />
+                </button>
               </>
             )}
 
@@ -164,8 +171,8 @@ export function WalletScreen({ onNavigate }: { onNavigate: (s: string) => void }
                 <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: 16 }}>
                   Withdrawals process in 1–2 business days.
                 </p>
-                <button className="btn btn-primary btn-full btn-bounce" onClick={() => { haptic('success'); setShowWithdraw(false); setWithdrawStep(1); }} style={{ borderRadius: 'var(--radius-md)' }}>
-                  Confirm Withdrawal ✓
+                <button className="btn btn-primary btn-full btn-bounce" onClick={() => { haptic('success'); setShowWithdraw(false); setWithdrawStep(1); }} style={{ borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  Confirm Withdrawal <MdCheck size={18} />
                 </button>
               </>
             )}

@@ -110,6 +110,31 @@
   --shadow-green: 0 4px 20px rgba(31, 122, 99, 0.4);
 }
 
+/* ──────────────────────────────────────────────
+   DARK MODE: MD ICONS (react-icons SVG)
+   Stickies icons (<img>) are NOT affected.
+   MD icons (via StickyIcon) use .sticky-icon-svg.
+   We flip them to white/near-white by default in dark mode.
+   ────────────────────────────────────────────── */
+
+/* Default MD icons in dark mode inherit the theme text color */
+[data-theme="dark"] .sticky-icon-svg {
+  color: var(--text-primary);
+}
+
+/* 1. Primary Buttons: Force icons to stay pure white */
+[data-theme="dark"] .btn-primary .sticky-icon-svg {
+  color: #ffffff;
+}
+
+/* 2. Settings Wrappers: Re-enforce brand colors */
+[data-theme="dark"] .settings-icon-green .sticky-icon-svg { color: var(--brand-green); }
+[data-theme="dark"] .settings-icon-orange .sticky-icon-svg { color: var(--action-orange); }
+[data-theme="dark"] .settings-icon-muted .sticky-icon-svg { color: var(--text-muted); }
+
+/* 3. Active Nav Items: Stay branded green */
+[data-theme="dark"] .nav-item.active .sticky-icon-svg { color: var(--brand-green); }
+
 /* ============================================
    RESET & BASE
    ============================================ */

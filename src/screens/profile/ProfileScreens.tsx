@@ -3,6 +3,7 @@ import { TopBar, Avatar, TrustBadge, StickyIcon } from '../../components/ui';
 import { useApp } from '../../context/AppContext';
 import { AVATARS, ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
+import { MdPerson, MdBuild, MdCheck, MdLightMode, MdDarkMode, MdDesktopMac } from 'react-icons/md';
 
 export function ProfileScreen({ onNavigate }: { onNavigate: (s: string) => void }) {
   const { userName, activeMode, setActiveMode } = useApp();
@@ -24,14 +25,16 @@ export function ProfileScreen({ onNavigate }: { onNavigate: (s: string) => void 
           <button
             className={`mode-btn ${activeMode === 'hire' ? 'active' : ''}`}
             onClick={() => { haptic('selection'); setActiveMode('hire'); }}
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
           >
-            🧑 Hire Mode
+            <MdPerson size={16} /> Hire Mode
           </button>
           <button
             className={`mode-btn ${activeMode === 'earn' ? 'active' : ''}`}
             onClick={() => { haptic('selection'); setActiveMode('earn'); }}
+            style={{ display: 'flex', alignItems: 'center', gap: 6 }}
           >
-            🔧 Earn Mode
+            <MdBuild size={16} /> Earn Mode
           </button>
         </div>
 
@@ -60,7 +63,8 @@ export function ProfileScreen({ onNavigate }: { onNavigate: (s: string) => void 
                 background: '#D1FAE5', color: '#065F46',
                 fontSize: '0.75rem', fontWeight: 700,
                 padding: '2px 10px', borderRadius: 'var(--radius-full)',
-              }}>✓ Done</span>
+                display: 'flex', alignItems: 'center', gap: 4,
+              }}><MdCheck size={12} /> Done</span>
             </div>
           ))}
         </div>
@@ -119,7 +123,7 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
   return (
     <div style={{ paddingBottom: 80 }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Settings"
       />
 
@@ -151,14 +155,18 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           {(['light', 'dark', 'system'] as const).map(t => (
             <div key={t} className="settings-item" style={{ cursor: 'pointer' }} onClick={() => { haptic('selection'); setTheme(t); }}>
               <div className="settings-item-left">
-                <div className="settings-icon-wrap settings-icon-green">
-                  {t === 'light' ? '☀️' : t === 'dark' ? '🌙' : '🖥️'}
+                <div className="settings-icon-wrap settings-icon-green" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {t === 'light'
+                    ? <MdLightMode size={20} style={{ color: 'var(--brand-green)' }} />
+                    : t === 'dark'
+                    ? <MdDarkMode size={20} style={{ color: 'var(--brand-green)' }} />
+                    : <MdDesktopMac size={20} style={{ color: 'var(--brand-green)' }} />}
                 </div>
                 <span style={{ fontWeight: 500, fontSize: '0.9375rem', textTransform: 'capitalize' }}>
                   {t === 'system' ? 'System Default' : `${t.charAt(0).toUpperCase() + t.slice(1)} Mode`}
                 </span>
               </div>
-              {theme === t && <span style={{ color: 'var(--brand-green)', fontWeight: 700, fontSize: '1.125rem' }}>✓</span>}
+              {theme === t && <MdCheck size={20} style={{ color: 'var(--brand-green)', flexShrink: 0 }} />}
             </div>
           ))}
         </div>

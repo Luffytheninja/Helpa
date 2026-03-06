@@ -131,7 +131,7 @@ export function ReferralScreen({ onBack }: { onBack: () => void }) {
   return (
     <div style={{ paddingBottom: 80 }}>
       <TopBar
-        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)' }}>←</button>}
+        left={<button onClick={() => { haptic('light'); onBack(); }} style={{ fontSize: 22, color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}><StickyIcon src={ICONS.back} size={22} /></button>}
         title="Referrals"
       />
 

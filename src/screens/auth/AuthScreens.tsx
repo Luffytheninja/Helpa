@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StickyIcon } from '../../components/ui';
 import { ICONS } from '../../constants';
 import { useApp } from '../../context/AppContext';
+import { MdArrowForward } from 'react-icons/md';
 
 // ───── Welcome Splash ─────
 export function SplashScreen() {
@@ -86,7 +87,7 @@ export function SplashScreen() {
               backdropFilter: 'blur(8px)',
             }}
           >
-            I already have an account → Login
+            I already have an account <MdArrowForward size={16} style={{ display: 'inline-block', verticalAlign: 'middle' }} /> Login
           </button>
         </div>
       </div>
@@ -116,8 +117,8 @@ export function PhoneScreen() {
     <div className="page-content no-nav" style={{ padding: '0 24px', display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       {/* Back */}
       <div style={{ paddingTop: 56, paddingBottom: 32 }}>
-        <button onClick={() => setAuthState('splash')} style={{ color: 'var(--text-muted)', fontSize: 24, marginBottom: 32, lineHeight: 1 }}>
-          ←
+        <button onClick={() => setAuthState('splash')} style={{ color: 'var(--text-muted)', fontSize: 24, marginBottom: 32, lineHeight: 1, display: 'flex', alignItems: 'center' }}>
+          <StickyIcon src={ICONS.back} size={24} />
         </button>
         <h1 className="animate-slide-up" style={{ fontSize: '1.875rem', fontWeight: 700, marginBottom: 8 }}>
           What's your number?
@@ -200,8 +201,8 @@ export function OTPScreen() {
   return (
     <div className="page-content no-nav" style={{ padding: '0 24px', display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <div style={{ paddingTop: 56, paddingBottom: 32 }}>
-        <button onClick={() => setAuthState('phone')} style={{ color: 'var(--text-muted)', fontSize: 24, marginBottom: 32 }}>
-          ←
+        <button onClick={() => setAuthState('phone')} style={{ color: 'var(--text-muted)', fontSize: 24, marginBottom: 32, display: 'flex', alignItems: 'center' }}>
+          <StickyIcon src={ICONS.back} size={24} />
         </button>
         <h1 style={{ fontSize: '1.875rem', fontWeight: 700, marginBottom: 8 }}>Enter your code</h1>
         <p style={{ color: 'var(--text-secondary)' }}>Sent to +234 813 ●●● ●●●●</p>
@@ -276,7 +277,7 @@ export function SetupScreen() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
         {[
           { id: 'customer' as const, icon: ICONS.reward, title: 'I need help', sub: 'Post jobs, hire helpers' },
-          { id: 'helper'   as const, icon: ICONS.wrench,  title: 'I want to earn', sub: 'Complete jobs, get paid' },
+          { id: 'helper'   as const, icon: ICONS.wrench,  title: 'Become a HELPA', sub: 'Complete jobs, get paid' },
         ].map(opt => (
           <button
             key={opt.id}
