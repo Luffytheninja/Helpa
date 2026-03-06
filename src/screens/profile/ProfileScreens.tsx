@@ -60,7 +60,7 @@ export function ProfileScreen({ onNavigate }: { onNavigate: (s: string) => void 
               <StickyIcon src={v.icon} size={26} alt={v.label} />
               <span style={{ flex: 1, fontWeight: 500, fontSize: '0.9375rem' }}>{v.label}</span>
               <span style={{
-                background: '#D1FAE5', color: '#065F46',
+                background: 'var(--status-success-bg)', color: 'var(--status-success-text)',
                 fontSize: '0.75rem', fontWeight: 700,
                 padding: '2px 10px', borderRadius: 'var(--radius-full)',
                 display: 'flex', alignItems: 'center', gap: 4,
@@ -216,11 +216,11 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
               <div className="settings-item-left">
                 <div
                   className={`settings-icon-wrap ${item.color === 'danger' ? '' : 'settings-icon-muted'}`}
-                  style={item.color === 'danger' ? { background: '#FEE2E2', color: '#DC2626' } : {}}
+                  style={item.color === 'danger' ? { background: 'var(--status-danger-bg)', color: 'var(--status-danger-text)' } : {}}
                 >
                   <StickyIcon src={item.icon} size={20} alt={item.label} />
                 </div>
-                <span style={{ fontWeight: 500, fontSize: '0.9375rem', color: item.color === 'danger' ? '#DC2626' : 'var(--text-primary)' }}>
+                <span style={{ fontWeight: 500, fontSize: '0.9375rem', color: item.color === 'danger' ? 'var(--status-danger-text)' : 'var(--text-primary)' }}>
                   {item.label}
                 </span>
               </div>

@@ -94,10 +94,10 @@ export function WalletScreen({ onNavigate }: { onNavigate: (s: string) => void }
           }}>
             <div style={{
               width: 44, height: 44, borderRadius: '50%',
-              background: tx.type === 'credit' ? '#D1FAE5' : '#FEE2E2',
+              background: tx.type === 'credit' ? 'var(--status-success-bg)' : 'var(--status-danger-bg)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
-              color: tx.type === 'credit' ? '#065F46' : '#DC2626',
+              color: tx.type === 'credit' ? 'var(--status-success-text)' : 'var(--status-danger-text)',
             }}>
               <StickyIcon src={tx.icon} size={22} />
             </div>

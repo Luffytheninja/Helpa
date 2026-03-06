@@ -41,8 +41,14 @@
   --status-scheduled: var(--brand-green);
   --status-contract: #7c3aed;
   --status-success: #16a34a;
+  --status-success-bg: #dcfce7;
+  --status-success-text: #065f46;
   --status-danger: #dc2626;
+  --status-danger-bg: #fee2e2;
+  --status-danger-text: #991b1b;
   --status-warning: #d97706;
+  --status-warning-bg: #fef9c3;
+  --status-warning-text: #92400e;
 
   --ring-verified: var(--brand-green);
   --ring-active: var(--action-orange);
@@ -102,6 +108,13 @@
 
   --separator: #1e3028;
   --border-card: #1f3a2e;
+
+  --status-success-bg: rgba(22, 163, 74, 0.15);
+  --status-success-text: #4ade80;
+  --status-danger-bg: rgba(220, 38, 38, 0.15);
+  --status-danger-text: #f87171;
+  --status-warning-bg: rgba(217, 119, 6, 0.15);
+  --status-warning-text: #fcd34d;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);

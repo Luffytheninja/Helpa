@@ -291,7 +291,7 @@ function HelperStep3() {
         </div>
       )}
       {verified === 'done' && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#16A34A', fontWeight: 600 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--status-success-text)', fontWeight: 600 }}>
           <MdCheckCircle size={24} /> NIN Verified <MdCheck size={18} />
         </div>
       )}

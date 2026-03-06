@@ -79,7 +79,7 @@ export function JobMatchingScreen({ onBack, onSelect }: { onBack: () => void; on
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                     {['NIN', 'BVN', 'Face'].map(v => (
                       <span key={v} style={{
-                        background: '#D1FAE5', color: '#065F46',
+                        background: 'var(--status-success-bg)', color: 'var(--status-success-text)',
                         fontSize: '0.6875rem', fontWeight: 700,
                         padding: '2px 8px', borderRadius: 'var(--radius-full)',
                         display: 'flex', alignItems: 'center', gap: 4

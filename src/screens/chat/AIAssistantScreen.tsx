@@ -86,7 +86,7 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
             <div style={{ maxWidth: '78%' }}>
               <div 
                 className={`chat-bubble ${msg.type}`}
-                style={msg.type === 'received' ? { background: 'white', color: 'var(--text-primary)', border: '1px solid var(--separator)' } : {}}
+                style={msg.type === 'received' ? { border: '1px solid var(--separator)' } : {}}
               >
                 {msg.text}
               </div>
@@ -105,7 +105,7 @@ export function AIAssistantScreen({ onBack }: { onBack: () => void }) {
              <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--brand-green)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: 8, marginTop: 4, flexShrink: 0 }}>
                 <StickyIcon src={ICONS.help} size={16} style={{ filter: 'brightness(0) invert(1)' }} />
              </div>
-             <div className="chat-bubble received" style={{ background: 'white', color: 'var(--text-primary)', border: '1px solid var(--separator)', display: 'flex', gap: 4, alignItems: 'center' }}>
+             <div className="chat-bubble received" style={{ border: '1px solid var(--separator)', display: 'flex', gap: 4, alignItems: 'center' }}>
                <div className="typing-dot" style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-muted)' }} />
                <div className="typing-dot" style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-muted)', animationDelay: '0.2s' }} />
                <div className="typing-dot" style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--text-muted)', animationDelay: '0.4s' }} />
