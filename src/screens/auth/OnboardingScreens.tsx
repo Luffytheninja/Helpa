@@ -66,7 +66,7 @@ function CustomerStep1() {
           alignItems: 'center', justifyContent: 'center',
           cursor: 'pointer', gap: 12, transition: 'all 0.2s',
         }}>
-          <StickyIcon src={ICONS.phone} size={48} />
+          <StickyIcon src={ICONS.camera} size={48} style={{ color: 'var(--brand-green)' }} />
           <span style={{ fontSize: '0.8125rem', color: 'var(--brand-green)', fontWeight: 700 }}>Upload photo</span>
         </div>
       </div>
@@ -249,7 +249,7 @@ function HelperStep2() {
           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
           cursor: 'pointer', gap: 12,
         }}>
-          <StickyIcon src={ICONS.phone} size={48} />
+          <StickyIcon src={ICONS.camera} size={48} style={{ color: 'var(--brand-green)' }} />
           <span style={{ fontSize: '0.8125rem', color: 'var(--brand-green)', fontWeight: 700 }}>Upload photo</span>
         </div>
       </div>

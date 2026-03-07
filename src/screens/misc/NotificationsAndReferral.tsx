@@ -3,7 +3,18 @@ import { TopBar, StickyIcon } from '../../components/ui';
 import { ICONS } from '../../constants';
 import { useHaptics } from '../../hooks/useHaptics';
 
-const NOTIFS = [
+interface NotificationItem {
+  id: string;
+  icon: string | React.ElementType;
+  bg: string;
+  color: string;
+  title: string;
+  sub: string;
+  time: string;
+  unread: boolean;
+}
+
+const NOTIFS: NotificationItem[] = [
   { id: 'n1', icon: ICONS.verification, bg: 'var(--status-success-bg)', color: 'var(--status-success-text)', title: 'Helper accepted your job', sub: 'Emeka Obi accepted Kitchen Sink Repair', time: '2 min ago', unread: true },
   { id: 'n2', icon: ICONS.lock,         bg: 'var(--status-warning-bg)', color: 'var(--status-warning-text)', title: 'Escrow funded', sub: '₦15,000 secured for Kitchen Sink Repair', time: '10 min ago', unread: true },
   { id: 'n3', icon: ICONS.star,         bg: 'var(--status-warning-bg)', color: 'var(--status-warning-text)', title: 'New rating received', sub: 'Tunde gave you 5 stars!', time: '1 hr ago', unread: true },
@@ -73,7 +84,7 @@ export function NotificationsScreen({ onBack }: { onBack: () => void }) {
           >
             <div
               className="notif-icon"
-              style={{ background: n.bg, color: (n as any).color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ background: n.bg, color: n.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <StickyIcon src={n.icon} size={24} />
             </div>
